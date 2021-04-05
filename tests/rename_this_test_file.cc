@@ -3,7 +3,7 @@
 #include <core/rename_this_file.h>
 
 TEST_CASE("Check that 126 is the best class") {
-  REQUIRE(naivebayes::Placeholder().GetBestClass() == "CS 126");
+  REQUIRE(naivebayes::Bayes().GetBestClass() == "CS 126");
 }
 
 /*
