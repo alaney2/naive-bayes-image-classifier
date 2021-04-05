@@ -18,17 +18,17 @@ void Bayes::ParseFile(std::string& file_path) {
   Image image;
   while (input.is_open()) {
     input >> image;
-    priors_[image.GetClass()] += 1;
+    prior_count[image.GetClass()] += 1;
     images_.push_back(image);
   }
 
-  SetPriors();
+  CalculatePriorProbabilities();
   input.close();
 }
 
-void Bayes::SetPriors() {
-  for (double & prior : priors_) {
-    prior = (constant_ + prior) / static_cast<double>(kNumDigits * constant_ + kTotalImages);
+void Bayes::CalculatePriorProbabilities() {
+  for (size_t i = 0; i < prior_prob.size(); ++i) {
+    prior_prob[i] = (constant_ + prior_count[i]) / static_cast<double>(kNumDigits * constant_ + kTotalImages);
   }
 }
 

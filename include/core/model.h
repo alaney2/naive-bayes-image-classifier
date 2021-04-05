@@ -14,7 +14,7 @@ class Bayes {
  public:
   std::string GetBestClass() const;
   void ParseFile(std::string& file_path);
-  void SetPriors();
+  void CalculatePriorProbabilities();
   void TrainModel();
 
  private:
@@ -22,7 +22,10 @@ class Bayes {
   size_t kTotalImages = 5000;
   size_t constant_ = 1;
   std::vector<Image> images_;
-  std::array<double, kNumDigits> priors_ = { 0 };
+  std::array<double, kNumDigits> prior_count = { 0 };
+  std::array<double, kNumDigits> prior_prob = { 0 };
+
+  double features_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
 };
 
 
