@@ -15,7 +15,9 @@ class Bayes {
   std::string GetBestClass() const;
   void ParseFile(std::string& file_path);
   void CalculatePriorProbabilities();
+  void CalculateFeatureProbabilities();
   void TrainModel();
+
 
  private:
   std::string kFilePath_ = "/data/training.txt";
@@ -25,7 +27,9 @@ class Bayes {
   std::array<double, kNumDigits> prior_count = { 0 };
   std::array<double, kNumDigits> prior_prob = { 0 };
 
-  double features_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
+  double feature_count_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
+  double feature_prob_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
+
 };
 
 

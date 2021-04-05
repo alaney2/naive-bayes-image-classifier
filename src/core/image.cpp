@@ -13,10 +13,10 @@ std::istream& naivebayes::operator>>(std::istream& is,
   for (size_t row = 0; row < kImageSize; ++row) {
     getline(is, line);
     for (size_t col = 0; col < kImageSize; ++col) {
-      if (line[col] == '+' || line[col] == '#') {
-        image.features_[row][col] = 1;
+      if (line[col] == ' ') {
+        image.shades_[row][col] = 0;
       } else {
-        image.features_[row][col] = 0;
+        image.shades_[row][col] = 1;
       }
     }
   }
@@ -32,4 +32,8 @@ std::ostream& naivebayes::operator<<(std::ostream& os,
 
 int naivebayes::Image::GetClass() {
   return class_;
+}
+
+int* naivebayes::Image::GetShades() {
+  return shades_[0];
 }

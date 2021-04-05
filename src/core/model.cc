@@ -34,7 +34,29 @@ void Bayes::CalculatePriorProbabilities() {
 
 void Bayes::TrainModel() {
   for (Image & image : images_) {
+    for (size_t row = 0; row < kImageSize; ++row) {
+      for (size_t col = 0; col < kImageSize; ++col) {
+        if (image.GetShades() == 0) {
+          feature_count_[row][col][0][image.GetClass()] += 1;
+        } else {
+          feature_count_[row][col][1][image.GetClass()] += 1;
+        }
+      }
+    }
+  }
+  CalculateFeatureProbabilities();
+}
 
+void Bayes::CalculateFeatureProbabilities() {
+  for (size_t row = 0; row < kImageSize; ++row) {
+    for (size_t col = 0; col < kImageSize; ++col) {
+      for (size_t shade = 0; shade < kNumShades; ++shade) {
+        for (size_t c = 0; c < kNumDigits; ++c) {
+          feature_prob_[row][col][shade][c] = (constant_ + feature_count_[row][col][shade][c]) /
+              static_cast<double>(2 * constant_ + prior_count[c]);
+        }
+      }
+    }
   }
 }
 
