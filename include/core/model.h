@@ -15,10 +15,12 @@ class Bayes {
   std::string GetBestClass() const;
   void ParseFile(std::string& file_path);
   void SetPriors();
+  void TrainModel();
 
  private:
-  std::string kFilePath_ = "/data/trainingimagesandlabels.txt";
+  std::string kFilePath_ = "/data/training.txt";
   size_t kTotalImages = 5000;
+  size_t constant_ = 1;
   std::vector<Image> images_;
   std::array<double, kNumDigits> priors_ = { 0 };
 };
@@ -35,5 +37,4 @@ You can (and should) create more classes and files in include/core (header
 
 Make sure to add any files that you create to CMakeLists.txt.
 
-TODO Delete this comment before submitting your code.
 */

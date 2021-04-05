@@ -17,8 +17,10 @@ class Image {
  public:
   friend std::istream& operator>>(std::istream& is, Image& image);
   friend std::ostream& operator<<(std::ostream& is, Image& image);
+  int GetClass();
 
  private:
+  int class_;
   double features_[kImageSize][kImageSize];
 
 };
