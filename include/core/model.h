@@ -1,24 +1,26 @@
+#include <array>
 #include <string>
 #include <vector>
 
+#include "image.h"
+
 namespace naivebayes {
 
-const size_t kNumShades = 2;
-const size_t kNumDigits = 10;
-const size_t kImageSize = 28;
+//const size_t kNumShades = 2;
+//const size_t kNumDigits = 10;
+//const size_t kImageSize = 28;
 
 class Bayes {
  public:
   std::string GetBestClass() const;
-
-
-
-
+  void ParseFile(std::string& file_path);
+  void SetPriors();
 
  private:
-  std::vector<std::vector<std::vector<std::vector<double>>>> features_;
-  std::vector<double> priors_;
-
+  std::string kFilePath_ = "/data/trainingimagesandlabels.txt";
+  size_t kTotalImages = 5000;
+  std::vector<Image> images_;
+  std::array<double, kNumDigits> priors_ = { 0 };
 };
 
 

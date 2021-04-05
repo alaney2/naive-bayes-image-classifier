@@ -1,6 +1,6 @@
-#include <iostream>
+#include <core/model.h>
 
-#include <core/rename_this_file.h>
+#include <iostream>
 
 // TODO: You may want to change main's signature to take in argc and argv
 int main() {

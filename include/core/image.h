@@ -2,9 +2,15 @@
 #define NAIVE_BAYES_IMAGE_H
 
 #include <cstddef>
-#include "rename_this_file.h"
+#include <iostream>
+
+//#include "model.h"
 
 namespace naivebayes {
+
+const size_t kNumShades = 2;
+const size_t kNumDigits = 10;
+const size_t kImageSize = 28;
 
 class Image {
 
@@ -13,7 +19,7 @@ class Image {
   friend std::ostream& operator<<(std::ostream& is, Image& image);
 
  private:
-  double features[kImageSize][kImageSize];
+  double features_[kImageSize][kImageSize];
 
 };
 

@@ -11,15 +11,16 @@ std::istream& naivebayes::operator>>(std::istream& is,
     getline(is, line);
     for (size_t col = 0; col < kImageSize; ++col) {
       if (line[col] == '+' || line[col] == '#') {
-        image.features[row][col] = 1;
+        image.features_[row][col] = 1;
       } else {
-        image.features[row][col] = 0;
+        image.features_[row][col] = 0;
       }
     }
   }
 
   return is;
 }
+
 std::ostream& naivebayes::operator<<(std::ostream& os,
                                      naivebayes::Image& image) {
 
