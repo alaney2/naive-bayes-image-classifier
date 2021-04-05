@@ -16,7 +16,9 @@ std::ostream& operator<<(std::ostream& os, vector<vector<vector<vector<double>>>
   return os;
 }
 
-std::istream& operator>>(std::istream& is, vector<vector<vector<vector<double>>>> vector) {
+std::istream& operator>>(
+    std::istream& is,
+    std::vector<std::vector<std::vector<std::vector<double>>>> vector) {
   std::string file_path = "/data/trainingimagesandlabels.txt";
   std::ifstream input_file(file_path);
   if (input_file.is_open()) {
