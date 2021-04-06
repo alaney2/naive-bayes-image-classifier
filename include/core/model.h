@@ -15,10 +15,12 @@ class Model {
   void TrainModel();
   void WriteDataToFile();
   void TakeInModelData();
+  
+  std::vector<Image> GetImages();
 
-  std::vector<Image> images_;
-  std::array<double, kNumDigits> prior_count_ = { 0 };
-  std::array<double, kNumDigits> prior_prob_ = { 0 };
+//  std::array<double, kNumDigits> prior_count_ = { 0 };
+  
+//  std::array<double, kNumDigits> prior_prob_ = { 0 };
 
   double feature_count_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
   double feature_prob_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
@@ -27,10 +29,12 @@ class Model {
   std::string kFilePath_ = "../data/training.txt";
   std::string kModelFile_ = "../data/model_data.txt";
   size_t kTotalImages = 5000;
-  size_t constant_ = 1;
+  double constant_ = 1;
+  std::vector<Image> images_;
 
+  std::vector<int> prior_count;
+  std::vector<double> prior_prob;
 };
-
 
 }  // namespace naivebayes
 
