@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <iostream>
+#include <vector>
 
 //#include "model.h"
 
@@ -18,10 +19,10 @@ class Image {
   friend std::istream& operator>>(std::istream& is, Image& image);
   friend std::ostream& operator<<(std::ostream& is, Image& image);
   int GetClass();
-  int* GetShades();
+  std::vector<std::vector<int>> GetShads();
   
-  int shades_[kImageSize][kImageSize];
-
+  std::vector<std::vector<int>> shades;
+  
  private:
   int class_;
 };

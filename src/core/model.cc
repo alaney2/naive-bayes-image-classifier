@@ -1,6 +1,5 @@
 #include <core/model.h>
 
-#include <stdio.h>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -38,7 +37,7 @@ void Model::TrainModel() {
   for (Image & image : images_) {
     for (size_t row = 0; row < kImageSize; ++row) {
       for (size_t col = 0; col < kImageSize; ++col) {
-        if (image.GetShades() == 0) {
+        if (*image.GetShades() == 0) {
           feature_count_[row][col][0][image.GetClass()] += 1;
         } else {
           feature_count_[row][col][1][image.GetClass()] += 1;

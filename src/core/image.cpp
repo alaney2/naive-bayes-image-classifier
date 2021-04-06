@@ -7,14 +7,13 @@ std::istream& operator>>(std::istream& is, Image& image) {
   getline(is, line);
 
   image.class_ = std::stoi(line);
-
+  image.shades.resize(kImageSize, std::vector<int>(kImageSize, 0));
+  
   for (size_t row = 0; row < kImageSize; ++row) {
     getline(is, line);
     for (size_t col = 0; col < kImageSize; ++col) {
       if (line[col] == '+' || line[col] == '#') {
-        image.shades_[row][col] = 1;
-      } else {
-        image.shades_[row][col] = 0;
+        image.shades[row][col] = 1;
       }
     }
   }
@@ -29,9 +28,8 @@ std::ostream& operator<<(std::ostream& os, naivebayes::Image& image) {
 int Image::GetClass() {
   return class_;
 }
-
-int* Image::GetShades() {
-  return reinterpret_cast<int*>(shades_);
+std::vector<std::vector<int>> Image::GetShads() {
+  return shades;
 }
 
 }
