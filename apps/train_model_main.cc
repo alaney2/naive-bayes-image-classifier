@@ -10,15 +10,16 @@ int main() {
   std::cout << "Welcome to " << naivebayes::Model().GetBestClass() << std::endl;
 
   naivebayes::Model model;
-  std::string file = "../data/training.txt";
+  std::string file = "../data/sample.txt";
   model.ParseFile(file);
-//  model.TrainModel();
+  model.TrainModel();
 //  model.WriteDataToFile();
-  std::cout << model.feature_prob_[0][0][0][4] << std::endl;
+  
+  std::cout << model.feature_prob[0][0][0][4] << std::endl;
 
   for (size_t i = 0; i < 28; ++i) {
     for (size_t j = 0; j < 28; ++j) {
-      std::cout << model.GetImages()[0].shades_[i][j];
+      std::cout << model.images_[0].GetShades()[i][j];
     }
     std::cout << std::endl;
   }
