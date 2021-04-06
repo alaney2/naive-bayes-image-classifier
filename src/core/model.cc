@@ -19,7 +19,7 @@ void Model::ParseFile(std::string& file_path) {
   Image image;
   while (input.is_open() && !input.eof()) {
     input >> image;
-    prior_count[image.GetClass()] += 1;
+    prior_count_[image.GetClass()] += 1;
     images_.push_back(image);
   }
 
@@ -28,8 +28,8 @@ void Model::ParseFile(std::string& file_path) {
 }
 
 void Model::CalculatePriorProbabilities() {
-  for (size_t i = 0; i < prior_prob.size(); ++i) {
-    prior_prob[i] = (constant_ + prior_count[i]) / static_cast<double>(kNumDigits * constant_ + kTotalImages);
+  for (size_t i = 0; i < prior_prob_.size(); ++i) {
+    prior_prob_[i] = (constant_ + prior_count_[i]) / static_cast<double>(kNumDigits * constant_ + kTotalImages);
   }
 }
 
@@ -54,7 +54,7 @@ void Model::CalculateFeatureProbabilities() {
       for (size_t shade = 0; shade < kNumShades; ++shade) {
         for (size_t c = 0; c < kNumDigits; ++c) {
           feature_prob_[row][col][shade][c] = (constant_ + feature_count_[row][col][shade][c]) /
-              static_cast<double>(2 * constant_ + prior_count[c]);
+              (static_cast<double>(2 * constant_ + prior_count_[c]));
         }
       }
     }

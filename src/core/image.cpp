@@ -7,8 +7,6 @@ std::istream& naivebayes::operator>>(std::istream& is, Image& image) {
 
   image.class_ = std::stoi(line);
 
-  std::cout << line << std::endl;
-
   for (size_t row = 0; row < kImageSize; ++row) {
     getline(is, line);
     for (size_t col = 0; col < kImageSize; ++col) {

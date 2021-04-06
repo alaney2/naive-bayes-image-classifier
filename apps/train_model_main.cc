@@ -12,10 +12,11 @@ int main() {
   naivebayes::Model model;
   std::string file = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/sample.txt";
   model.ParseFile(file);
-  std::cout << model.images_.size();
+  std::cout << model.images_.size() << std::endl;
+  std::cout << model.images_[0].GetClass() << std::endl;
   model.TrainModel();
   model.WriteDataToFile();
   std::cout << model.feature_prob_[0][0][0][4];
-
+//  std::cout << model.prior_count_[4];
   return 0;
 }

@@ -21,8 +21,8 @@ class Model {
   void TakeInModelData();
 
   std::vector<Image> images_;
-  std::array<double, kNumDigits> prior_count = { 0 };
-  std::array<double, kNumDigits> prior_prob = { 0 };
+  std::array<double, kNumDigits> prior_count_ = { 0 };
+  std::array<double, kNumDigits> prior_prob_ = { 0 };
 
   double feature_count_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
   double feature_prob_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
