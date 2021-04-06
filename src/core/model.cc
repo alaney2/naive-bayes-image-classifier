@@ -12,6 +12,8 @@ std::string Bayes::GetBestClass() const {
   return "CS 126";
 }
 
+
+
 void Bayes::ParseFile(std::string& file_path) {
   std::ifstream input(file_path);
 
@@ -58,6 +60,28 @@ void Bayes::CalculateFeatureProbabilities() {
       }
     }
   }
+}
+
+void Bayes::WriteDataToFile() {
+  std::ofstream new_file;
+  new_file.open(kModelFile_);
+  if (!new_file) {
+    for (size_t num = 0; num < kNumDigits; ++num) {
+      new_file << num << " ";
+      for (size_t shade = 0; shade < kNumShades; ++shade) {
+        new_file << shade << std::endl;
+        for (size_t row = 0; row < kImageSize; ++row) {
+          for (size_t col = 0; col < kImageSize; ++col) {
+            new_file << feature_prob_[row][col][shade][num] << " ";
+          }
+          new_file << std::endl;
+        }
+      }
+    }
+  }
+}
+void Bayes::TakeInModelData() {
+
 }
 
 }  // namespace naivebayes

@@ -17,10 +17,12 @@ class Bayes {
   void CalculatePriorProbabilities();
   void CalculateFeatureProbabilities();
   void TrainModel();
-
+  void WriteDataToFile();
+  void TakeInModelData();
 
  private:
   std::string kFilePath_ = "/data/training.txt";
+  std::string kModelFile_ = "/data/model_data.txt";
   size_t kTotalImages = 5000;
   size_t constant_ = 1;
   std::vector<Image> images_;
