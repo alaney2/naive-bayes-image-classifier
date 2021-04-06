@@ -24,8 +24,8 @@ class Model {
   double feature_prob_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
 
  private:
-  std::string kFilePath_ = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/training.txt";
-  std::string kModelFile_ = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model_data.txt";
+  std::string kFilePath_ = "../data/training.txt";
+  std::string kModelFile_ = "../data/model_data.txt";
   size_t kTotalImages = 5000;
   size_t constant_ = 1;
 

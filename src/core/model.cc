@@ -30,7 +30,7 @@ void Model::ParseFile(std::string& file_path) {
 
 void Model::CalculatePriorProbabilities() {
   for (size_t i = 0; i < prior_prob_.size(); ++i) {
-    prior_prob_[i] = (constant_ + prior_count_[i]) / static_cast<double>(kNumDigits * constant_ + kTotalImages);
+    prior_prob_[i] = log((constant_ + prior_count_[i]) / static_cast<double>(kNumDigits * constant_ + kTotalImages));
   }
 }
 
@@ -54,8 +54,8 @@ void Model::CalculateFeatureProbabilities() {
     for (size_t col = 0; col < kImageSize; ++col) {
       for (size_t shade = 0; shade < kNumShades; ++shade) {
         for (size_t c = 0; c < kNumDigits; ++c) {
-          feature_prob_[row][col][shade][c] = (constant_ + feature_count_[row][col][shade][c]) /
-              (static_cast<double>(2 * constant_ + prior_count_[c]));
+          feature_prob_[row][col][shade][c] = log((constant_ + feature_count_[row][col][shade][c]) /
+              (static_cast<double>(2 * constant_ + prior_count_[c])));
         }
       }
     }
@@ -63,9 +63,12 @@ void Model::CalculateFeatureProbabilities() {
 }
 
 void Model::WriteDataToFile() {
-  std::ofstream new_file;
-  new_file.open(kModelFile_, std::ios::out);
+  std::fstream new_file;
+  new_file.open(kModelFile_, std::fstream::in | std::fstream::out | std::fstream::app);
+//  new_file.open(kModelFile_, std::ios::out);
   if (!new_file) {
+    new_file.open(kModelFile_, std::fstream::in | std::fstream::out | std::fstream::trunc);
+    std::cout << "here" << std::endl;
     for (size_t num = 0; num < kNumDigits; ++num) {
       for (size_t shade = 0; shade < kNumShades; ++shade) {
         for (size_t row = 0; row < kImageSize; ++row) {
@@ -76,8 +79,8 @@ void Model::WriteDataToFile() {
         }
       }
     }
+    new_file.close();
   }
-  new_file.close();
 }
 
 void Model::TakeInModelData() {
