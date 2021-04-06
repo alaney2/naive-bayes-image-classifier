@@ -9,15 +9,15 @@ using std::vector;
 
 namespace naivebayes {
 
-std::string Bayes::GetBestClass() const {
+std::string Model::GetBestClass() const {
   return "CS 126";
 }
 
-void Bayes::ParseFile(std::string& file_path) {
+void Model::ParseFile(std::string& file_path) {
   std::ifstream input(file_path);
 
   Image image;
-  while (input.is_open()) {
+  while (input.is_open() && !input.eof()) {
     input >> image;
     prior_count[image.GetClass()] += 1;
     images_.push_back(image);
@@ -27,13 +27,13 @@ void Bayes::ParseFile(std::string& file_path) {
   input.close();
 }
 
-void Bayes::CalculatePriorProbabilities() {
+void Model::CalculatePriorProbabilities() {
   for (size_t i = 0; i < prior_prob.size(); ++i) {
     prior_prob[i] = (constant_ + prior_count[i]) / static_cast<double>(kNumDigits * constant_ + kTotalImages);
   }
 }
 
-void Bayes::TrainModel() {
+void Model::TrainModel() {
   for (Image & image : images_) {
     for (size_t row = 0; row < kImageSize; ++row) {
       for (size_t col = 0; col < kImageSize; ++col) {
@@ -48,7 +48,7 @@ void Bayes::TrainModel() {
   CalculateFeatureProbabilities();
 }
 
-void Bayes::CalculateFeatureProbabilities() {
+void Model::CalculateFeatureProbabilities() {
   for (size_t row = 0; row < kImageSize; ++row) {
     for (size_t col = 0; col < kImageSize; ++col) {
       for (size_t shade = 0; shade < kNumShades; ++shade) {
@@ -61,7 +61,7 @@ void Bayes::CalculateFeatureProbabilities() {
   }
 }
 
-void Bayes::WriteDataToFile() {
+void Model::WriteDataToFile() {
   std::ofstream new_file;
   new_file.open(kModelFile_);
   if (!new_file) {
@@ -80,7 +80,7 @@ void Bayes::WriteDataToFile() {
   }
 }
 
-void Bayes::TakeInModelData() {
+void Model::TakeInModelData() {
   std::ifstream new_file;
   new_file.open(kModelFile_);
 

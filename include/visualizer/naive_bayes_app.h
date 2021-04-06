@@ -10,7 +10,7 @@ namespace naivebayes {
 namespace visualizer {
 
 /**
- * Allows a user to draw a digit on a sketchpad and uses Naive Bayes to
+ * Allows a user to draw a digit on a sketchpad and uses Naive Model to
  * classify it.
  */
 class NaiveBayesApp : public ci::app::App {

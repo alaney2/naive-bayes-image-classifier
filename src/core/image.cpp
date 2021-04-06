@@ -1,14 +1,13 @@
-//
-// Created by Alan Yao on 4/5/21.
-//
-
 #include "core/image.h"
 
-std::istream& naivebayes::operator>>(std::istream& is,
-                                     naivebayes::Image& image) {
+
+std::istream& naivebayes::operator>>(std::istream& is, Image& image) {
   std::string line;
   getline(is, line);
+
   image.class_ = std::stoi(line);
+
+  std::cout << line << std::endl;
 
   for (size_t row = 0; row < kImageSize; ++row) {
     getline(is, line);

@@ -9,7 +9,7 @@ namespace visualizer {
 /**
  * A sketchpad which will be displayed in the Cinder application and respond to
  * mouse events. Furthermore, the sketchpad can output its current state in the
- * same format as the Naive Bayes image data files.
+ * same format as the Naive Model image data files.
  */
 class Sketchpad {
  public:
