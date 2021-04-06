@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 using std::vector;
@@ -11,8 +12,6 @@ namespace naivebayes {
 std::string Bayes::GetBestClass() const {
   return "CS 126";
 }
-
-
 
 void Bayes::ParseFile(std::string& file_path) {
   std::ifstream input(file_path);
@@ -67,9 +66,9 @@ void Bayes::WriteDataToFile() {
   new_file.open(kModelFile_);
   if (!new_file) {
     for (size_t num = 0; num < kNumDigits; ++num) {
-      new_file << num << " ";
+//      new_file << num << " ";
       for (size_t shade = 0; shade < kNumShades; ++shade) {
-        new_file << shade << std::endl;
+//        new_file << shade << std::endl;
         for (size_t row = 0; row < kImageSize; ++row) {
           for (size_t col = 0; col < kImageSize; ++col) {
             new_file << feature_prob_[row][col][shade][num] << " ";
@@ -80,8 +79,33 @@ void Bayes::WriteDataToFile() {
     }
   }
 }
-void Bayes::TakeInModelData() {
 
+void Bayes::TakeInModelData() {
+  std::ifstream new_file;
+  new_file.open(kModelFile_);
+
+  std::string line;
+  if (new_file) {
+    while (getline(new_file, line)) {
+      std::stringstream line_stream(line);
+
+      std::string str;
+//      size_t digit;
+//      size_t shade;
+//      line_stream >> digit >> shade;
+      for (size_t num = 0; num < kNumDigits; ++num) {
+        for (size_t shade = 0; shade < kNumShades; ++shade) {
+          for (size_t row = 0; row < kNumDigits; ++row) {
+            for (size_t col = 0; col < kNumDigits; ++col) {
+              while (line_stream >> str) {
+                feature_prob_[row][col][shade][num] = std::stoi(str);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 }  // namespace naivebayes
