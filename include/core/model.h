@@ -6,10 +6,6 @@
 
 namespace naivebayes {
 
-//const size_t kNumShades = 2;
-//const size_t kNumDigits = 10;
-//const size_t kImageSize = 28;
-
 class Model {
  public:
   std::string GetBestClass() const;
@@ -28,11 +24,10 @@ class Model {
   double feature_prob_[kNumDigits][kNumDigits][kNumShades][kNumDigits];
 
  private:
-  std::string kFilePath_ = "/data/training.txt";
-  std::string kModelFile_ = "/data/model_data.txt";
+  std::string kFilePath_ = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/training.txt";
+  std::string kModelFile_ = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model_data.txt";
   size_t kTotalImages = 5000;
   size_t constant_ = 1;
-
 
 };
 

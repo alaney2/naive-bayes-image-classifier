@@ -19,11 +19,10 @@ class Image {
   friend std::ostream& operator<<(std::ostream& is, Image& image);
   int GetClass();
   int* GetShades();
+  int shades_[kImageSize][kImageSize];
 
  private:
   int class_;
-  int shades_[kImageSize][kImageSize];
-
 };
 
 }

@@ -1,7 +1,8 @@
 #include "core/image.h"
 
+namespace naivebayes {
 
-std::istream& naivebayes::operator>>(std::istream& is, Image& image) {
+std::istream& operator>>(std::istream& is, Image& image) {
   std::string line;
   getline(is, line);
 
@@ -10,10 +11,10 @@ std::istream& naivebayes::operator>>(std::istream& is, Image& image) {
   for (size_t row = 0; row < kImageSize; ++row) {
     getline(is, line);
     for (size_t col = 0; col < kImageSize; ++col) {
-      if (line[col] == ' ') {
-        image.shades_[row][col] = 0;
-      } else {
+      if (line[col] == '+' || line[col] == '#') {
         image.shades_[row][col] = 1;
+      } else {
+        image.shades_[row][col] = 0;
       }
     }
   }
@@ -21,16 +22,16 @@ std::istream& naivebayes::operator>>(std::istream& is, Image& image) {
   return is;
 }
 
-std::ostream& naivebayes::operator<<(std::ostream& os,
-                                     naivebayes::Image& image) {
-
+std::ostream& operator<<(std::ostream& os, naivebayes::Image& image) {
   return os;
 }
 
-int naivebayes::Image::GetClass() {
+int Image::GetClass() {
   return class_;
 }
 
-int* naivebayes::Image::GetShades() {
-  return shades_[0];
+int* Image::GetShades() {
+  return reinterpret_cast<int*>(shades_);
+}
+
 }
