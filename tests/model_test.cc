@@ -15,9 +15,9 @@ TEST_CASE("Model") {
   model.ParseFile(file);
   model.TrainModel();
   SECTION("Correct class") {
-    REQUIRE(model.images_[0].GetClass() == 5);
-    REQUIRE(model.images_[1].GetClass() == 0);
-    REQUIRE(model.images_[3].GetClass() == 4);
+    REQUIRE(model.GetImages()[0].GetClass() == 5);
+    REQUIRE(model.GetImages()[1].GetClass() == 0);
+    REQUIRE(model.GetImages()[3].GetClass() == 4);
   }
   
   SECTION("Shaded vs unshaded") {
@@ -31,13 +31,13 @@ TEST_CASE("Model") {
   }
   
   SECTION("Feature count") {
-    REQUIRE(model.feature_count[0][0][0][0] == 1);
-    REQUIRE(model.feature_count[15][15][0][3] == 0);
-    REQUIRE(model.feature_count[3][10][0][4] == 2);
+    REQUIRE(model.GetFeatureCount()[0][0][0][0] == 1);
+    REQUIRE(model.GetFeatureCount()[15][15][0][3] == 0);
+    REQUIRE(model.GetFeatureCount()[3][10][0][4] == 2);
     
-    REQUIRE(model.feature_count[15][10][1][4] == 2);
-    REQUIRE(model.feature_count[17][11][1][4] == 0);
-    REQUIRE(model.feature_count[23][19][1][4] == 1);
+    REQUIRE(model.GetFeatureCount()[15][10][1][4] == 2);
+    REQUIRE(model.GetFeatureCount()[17][11][1][4] == 0);
+    REQUIRE(model.GetFeatureCount()[23][19][1][4] == 1);
   }
   
   SECTION("Images") {
@@ -49,9 +49,9 @@ TEST_CASE("Probabilities") {
   naivebayes::Model model;
   std::string file = "../data/sample.txt";
   model.ParseFile(file);
-  REQUIRE(model.images_[0].GetShades()[0][0] == 0);
-  REQUIRE(model.feature_count[0][0][0][0] == 0);
-  REQUIRE(model.images_[0].GetClass() == 5);
+  REQUIRE(model.GetImages()[0].GetShades()[0][0] == 0);
+  REQUIRE(model.GetFeatureCount()[0][0][0][0] == 0);
+  REQUIRE(model.GetImages()[0].GetClass() == 5);
 }
 
 /*

@@ -17,16 +17,18 @@ class Model {
   void TakeInModelData();
   
   std::vector<Image> GetImages();
+  std::vector<std::vector<std::vector<std::vector<int>>>> GetFeatureCount();
+  std::vector<std::vector<std::vector<std::vector<double>>>> GetFeatureProbability();
   
-  std::vector<std::vector<std::vector<std::vector<int>>>> feature_count;
-  std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob;
-  std::vector<Image> images_;
-
  private:
   std::string kFilePath_ = "../data/training.txt";
   std::string kModelFile_ = "../data/model_data.txt";
   size_t kTotalImages = 5000;
   double constant_ = 1;
+
+  std::vector<Image> images_;
+  std::vector<std::vector<std::vector<std::vector<int>>>> feature_count_;
+  std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob_;
 
   std::vector<size_t> prior_count;
   std::vector<double> prior_prob;

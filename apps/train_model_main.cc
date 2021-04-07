@@ -15,7 +15,7 @@ int main() {
   model.TrainModel();
   model.WriteDataToFile();
   
-  std::cout << model.feature_prob[0][0][0][4] << std::endl;
+  std::cout << model.feature_prob_[0][0][0][4] << std::endl;
 //  std::cout << model.images_[0].GetShades()[0][0] << std::endl;
 //  std::cout << model.images_[0].GetClass() << std::endl;
 
