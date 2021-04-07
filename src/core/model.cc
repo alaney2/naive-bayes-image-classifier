@@ -73,23 +73,19 @@ void Model::CalculateFeatureProbabilities() {
 }
 
 void Model::WriteDataToFile(std::string &file_name) {
-  std::fstream new_file;
-//  new_file.open(file_name);
-  if (!new_file) {
-    new_file.open(file_name);
-    std::cout << "here" << std::endl;
-    for (size_t num = 0; num < kNumDigits; ++num) {
-      for (size_t shade = 0; shade < kNumShades; ++shade) {
-        for (size_t row = 0; row < kImageSize; ++row) {
-          for (size_t col = 0; col < kImageSize; ++col) {
-            new_file << feature_prob_[row][col][shade][num] << " ";
-          }
-          new_file << std::endl;
+  std::ofstream new_file(file_name);
+  
+  for (size_t num = 0; num < kNumDigits; ++num) {
+    for (size_t shade = 0; shade < kNumShades; ++shade) {
+      for (size_t row = 0; row < kImageSize; ++row) {
+        for (size_t col = 0; col < kImageSize; ++col) {
+          new_file << feature_prob_[row][col][shade][num] << " ";
         }
+        new_file << std::endl;
       }
     }
-    new_file.close();
   }
+  new_file.close();
 }
 
 void Model::TakeInModelData() {
