@@ -61,7 +61,7 @@ TEST_CASE("Loading model") {
   naivebayes::Model model;
   std::string file = "../data/model.txt";
   model.TakeInModelData(file);
-  REQUIRE(model.GetFeatureProbability()[0][0][0][0] == -0.00208117);
+  REQUIRE(model.GetFeatureProbability()[0][0][0][1] == -0.00208117);
 }
 /*
 

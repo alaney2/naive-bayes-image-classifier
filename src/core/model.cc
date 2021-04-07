@@ -85,6 +85,7 @@ void Model::WriteDataToFile(std::string &file_name) {
   std::ofstream new_file(file_name);
 
   for (size_t num = 0; num < kNumDigits; ++num) {
+    new_file << prior_prob[num] << std::endl;
     for (size_t shade = 0; shade < kNumShades; ++shade) {
       for (size_t row = 0; row < kImageSize; ++row) {
         for (size_t col = 0; col < kImageSize; ++col) {

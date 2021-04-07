@@ -13,12 +13,12 @@ int main() {
   std::string file = "../data/training.txt";
   model.ParseFile(file);
   model.TrainModel();
-//  std::string new_file = "../data/test_model.txt";
+  std::string new_file = "../data/test_model.txt";
   
   std::string model_file = "../data/model.txt";
   model.WriteDataToFile(model_file);
 
-//  model.WriteDataToFile(new_file);
+  model.WriteDataToFile(new_file);
 //  std::cout << model.GetFeatureProbability()[0][0][0][0] << std::endl;
 //  std::cout << model.GetFeatureProbability()[0][0][0][5] << std::endl;
   

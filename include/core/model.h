@@ -35,19 +35,21 @@ class Model {
   void TrainModel();
 
   /**
-   * 
+   * Calculates and stores logarithmic probabilities of features in a 4d vector
    */
   void CalculateFeatureProbabilities();
   
   /**
-   * 
-   * @param file_name 
+   * Outputs feature probabilities and prior probabilities to a file 
+   * Format is [pixel][pixel][shaded][number] with breaks every 28 pixels
+   * The prior probability comes before each block
+   * @param file_name name of file to create and write to
    */
   void WriteDataToFile(std::string &file_name);
   
   /**
-   * 
-   * @param file_name 
+   * Stores feature probabilities
+   * @param file_name to take in data from
    */
   void TakeInModelData(std::string &file_name);
   
@@ -57,7 +59,7 @@ class Model {
   
  private:
   std::string kFilePath_ = "../data/training.txt";
-  size_t kTotalImages = 5000;
+  size_t kTotalImages = 5000; 
   double constant_ = 1;
 
   std::vector<Image> images_;
@@ -68,4 +70,4 @@ class Model {
   std::vector<double> prior_prob;
 };
 
-}  // namespace naivebayess
+}  // namespace naivebayes
