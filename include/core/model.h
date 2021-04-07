@@ -8,6 +8,8 @@ namespace naivebayes {
 
 class Model {
  public:
+  friend std::ostream& operator<<(std::ostream& os, Model& model);
+
   std::string GetBestClass() const;
   void ParseFile(std::string& file_path);
   void CalculatePriorProbabilities();

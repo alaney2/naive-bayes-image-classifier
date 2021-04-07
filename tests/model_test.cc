@@ -51,11 +51,18 @@ TEST_CASE("Probabilities") {
   naivebayes::Model model;
   std::string file = "../data/sample.txt";
   model.ParseFile(file);
+  model.TrainModel();
   REQUIRE(model.GetImages()[0].GetShades()[0][0] == 0);
   REQUIRE(model.GetFeatureCount()[0][0][0][0] == 0);
   REQUIRE(model.GetImages()[0].GetClass() == 5);
 }
 
+TEST_CASE("Loading model") {
+  naivebayes::Model model;
+  std::string file = "../data/model.txt";
+  model.TakeInModelData(file);
+  REQUIRE(model.GetFeatureProbability()[0][0][0][0] == -0.00208117);
+}
 /*
 
 You can (and should) create more test files; this project is too big

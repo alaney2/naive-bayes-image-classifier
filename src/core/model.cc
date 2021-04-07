@@ -13,14 +13,14 @@ std::string Model::GetBestClass() const {
   return "CS 126";
 }
 
-void Model::ParseFile(std::string& file_path) {
+void Model::ParseFile(std::string &file_path) {
   std::ifstream input(file_path);
   prior_count.resize(kNumDigits, 0);
-  
+
   if (!input) {
     return;
   }
-  
+
   while (!input.eof()) {
     Image image;
     input >> image;
@@ -34,16 +34,21 @@ void Model::ParseFile(std::string& file_path) {
 
 void Model::CalculatePriorProbabilities() {
   prior_prob.resize(kNumDigits, 0);
-  
+
   for (size_t i = 0; i < prior_prob.size(); ++i) {
-    prior_prob[i] = log((constant_ + prior_count[i]) / static_cast<double>(kNumDigits * constant_ + kTotalImages));
+    prior_prob[i] =
+        log((constant_ + prior_count[i]) /
+            static_cast<double>(kNumDigits * constant_ + kTotalImages));
   }
 }
 
 void Model::TrainModel() {
-  feature_count_ = vector<vector<vector<vector<int>>>>(kImageSize,vector<vector<vector<int>>>(kImageSize,vector<vector<int>>(kNumShades,vector<int>(kNumDigits))));
-  
-  for (Image & image : images_) {
+  feature_count_ = vector<vector<vector<vector<int>>>>(
+      kImageSize, vector<vector<vector<int>>>(
+                      kImageSize, vector<vector<int>>(
+                                      kNumShades, vector<int>(kNumDigits))));
+
+  for (Image &image : images_) {
     for (size_t row = 0; row < kImageSize; ++row) {
       for (size_t col = 0; col < kImageSize; ++col) {
         if (image.GetShades()[row][col] == 0) {
@@ -58,14 +63,18 @@ void Model::TrainModel() {
 }
 
 void Model::CalculateFeatureProbabilities() {
-  feature_prob_ = vector<vector<vector<vector<double>>>>(kImageSize,vector<vector<vector<double>>>(kImageSize,vector<vector<double>>(kNumShades,vector<double>(kNumDigits))));
+  feature_prob_ = vector<vector<vector<vector<double>>>>(
+      kImageSize, vector<vector<vector<double>>>(
+                      kImageSize, vector<vector<double>>(
+                                      kNumShades, vector<double>(kNumDigits))));
 
   for (size_t row = 0; row < kImageSize; ++row) {
     for (size_t col = 0; col < kImageSize; ++col) {
       for (size_t shade = 0; shade < kNumShades; ++shade) {
         for (size_t c = 0; c < kNumDigits; ++c) {
-          feature_prob_[row][col][shade][c] = log((constant_ + feature_count_[row][col][shade][c]) /
-              (static_cast<double>(2 * constant_ + prior_count[c])));
+          feature_prob_[row][col][shade][c] =
+              log((constant_ + feature_count_[row][col][shade][c]) /
+                  (static_cast<double>(2 * constant_ + prior_count[c])));
         }
       }
     }
@@ -74,7 +83,7 @@ void Model::CalculateFeatureProbabilities() {
 
 void Model::WriteDataToFile(std::string &file_name) {
   std::ofstream new_file(file_name);
-  
+
   for (size_t num = 0; num < kNumDigits; ++num) {
     for (size_t shade = 0; shade < kNumShades; ++shade) {
       for (size_t row = 0; row < kImageSize; ++row) {
@@ -89,28 +98,37 @@ void Model::WriteDataToFile(std::string &file_name) {
 }
 
 void Model::TakeInModelData(std::string &file_name) {
-  std::ifstream new_file;
-  new_file.open(file_name);
+  feature_prob_ = vector<vector<vector<vector<double>>>>(
+      kImageSize, vector<vector<vector<double>>>(
+                      kImageSize, vector<vector<double>>(
+                                      kNumShades, vector<double>(kNumDigits))));
+  std::ifstream new_file(file_name);
 
   std::string line;
-  if (new_file) {
-    while (getline(new_file, line)) {
-      std::stringstream line_stream(line);
-
-      std::string str;
-      for (size_t num = 0; num < kNumDigits; ++num) {
-        for (size_t shade = 0; shade < kNumShades; ++shade) {
-          for (size_t row = 0; row < kNumDigits; ++row) {
-            for (size_t col = 0; col < kNumDigits; ++col) {
-              while (line_stream >> str) {
-                feature_prob_[row][col][shade][num] = std::stoi(str);
-              }
-            }
+  while (getline(new_file, line)) {
+    std::istringstream ss(line);
+    std::string feature;
+    for (size_t num = 0; num < kNumDigits; ++num) {
+      for (size_t shade = 0; shade < kNumShades; ++shade) {
+        for (size_t row = 0; row < kNumDigits; ++row) {
+          for (size_t col = 0; col < kNumDigits; ++col) {
+            //            while (ss >> feature) {
+            std::cout << "here" << std::endl;
+            ss >> feature;
+            std::cout << "there" << std::endl;
+            feature_prob_[row][col][shade][num] = std::stod(feature);
+            //            }
           }
         }
       }
     }
   }
+}
+
+std::ostream &operator<<(std::ostream &os, Model &model) {
+  std::string line;
+
+  return os;
 }
 
 std::vector<Image> Model::GetImages() {

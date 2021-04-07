@@ -25,10 +25,6 @@ std::istream& operator>>(std::istream &is, Image &image) {
   return is;
 }
 
-std::ostream& operator<<(std::ostream& os, naivebayes::Image& image) {
-  return os;
-}
-
 size_t Image::GetClass() {
   return class_;
 }

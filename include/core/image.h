@@ -17,7 +17,7 @@ class Image {
 
  public:
   friend std::istream& operator>>(std::istream& is, Image& image);
-  friend std::ostream& operator<<(std::ostream& is, Image& image);
+  
   size_t GetClass();
   std::vector<std::vector<int>> GetShades();
   
