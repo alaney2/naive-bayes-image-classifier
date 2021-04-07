@@ -10,31 +10,21 @@ int main() {
   std::cout << "Welcome to " << naivebayes::Model().GetBestClass() << std::endl;
 
   naivebayes::Model model;
-  std::string file = "../data/sample.txt";
+  std::string file = "../data/training.txt";
   model.ParseFile(file);
   model.TrainModel();
-  std::string new_file = "../data/model.txt";
-  model.WriteDataToFile(new_file);
+//  std::string new_file = "../data/test_model.txt";
   
-//  std::cout << model.feature_prob_[0][0][0][4] << std::endl;
-//  std::cout << model.images_[0].GetShades()[0][0] << std::endl;
-//  std::cout << model.images_[0].GetClass() << std::endl;
+  std::string model_file = "../data/model.txt";
+  model.WriteDataToFile(model_file);
 
-//  for (size_t k = 0; k < model.images_.size(); ++k) {
-//    std::cout << model.images_[k].GetClass() << std::endl;
-//    for (size_t i = 0; i < 28; ++i) {
-//      for (size_t j = 0; j < 28; ++j) {
-//        std::cout << model.images_[k].GetShades()[i][j];
-//      }
-//      std::cout << std::endl;
-//    }
-//  }
-
-//  for (size_t i = 0; i < 28; ++i) {
-//    for (size_t j = 0; j < 28; ++j) {
-//      std::cout << model.images_[3].GetShades()[i][j];
-//    }
-//    std::cout << std::endl;
-//  }
+//  model.WriteDataToFile(new_file);
+//  std::cout << model.GetFeatureProbability()[0][0][0][0] << std::endl;
+//  std::cout << model.GetFeatureProbability()[0][0][0][5] << std::endl;
+  
+//  model.TakeInModelData(new_file);
+//  std::cout << model.GetFeatureProbability()[0][0][0][0] << std::endl;
+//  std::cout << model.GetFeatureProbability()[0][0][0][5] << std::endl;
+  
   return 0;
 }

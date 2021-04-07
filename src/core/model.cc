@@ -88,9 +88,9 @@ void Model::WriteDataToFile(std::string &file_name) {
   new_file.close();
 }
 
-void Model::TakeInModelData() {
+void Model::TakeInModelData(std::string &file_name) {
   std::ifstream new_file;
-  new_file.open(kModelFile_);
+  new_file.open(file_name);
 
   std::string line;
   if (new_file) {
@@ -116,10 +116,12 @@ void Model::TakeInModelData() {
 std::vector<Image> Model::GetImages() {
   return images_;
 }
+
 std::vector<std::vector<std::vector<std::vector<int>>>>
 Model::GetFeatureCount() {
   return feature_count_;
 }
+
 std::vector<std::vector<std::vector<std::vector<double>>>>
 Model::GetFeatureProbability() {
   return feature_prob_;
