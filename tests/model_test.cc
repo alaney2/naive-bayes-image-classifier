@@ -61,15 +61,7 @@ TEST_CASE("Loading model") {
   naivebayes::Model model;
   std::string file = "../data/model.txt";
   model.TakeInModelData(file);
+  REQUIRE(model.GetPriorProbability()[0] == -2.34541);
   REQUIRE(model.GetFeatureProbability()[0][0][0][1] == -0.00208117);
 }
-/*
 
-You can (and should) create more test files; this project is too big
-for all tests to be in the same file. Remember that, for each file (foo.cc)
-containing non-trivial code, you should have a corresponding test file
-(foo_test.cc)
-
-Make sure to add any files that you create to CMakeLists.txt.
-
-*/

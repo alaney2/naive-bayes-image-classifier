@@ -83,7 +83,7 @@ void Model::CalculateFeatureProbabilities() {
 
 void Model::WriteDataToFile(std::string &file_name) {
   std::ofstream new_file(file_name);
-
+  
   for (size_t num = 0; num < kNumDigits; ++num) {
     new_file << prior_prob[num] << std::endl;
     for (size_t shade = 0; shade < kNumShades; ++shade) {
@@ -99,10 +99,12 @@ void Model::WriteDataToFile(std::string &file_name) {
 }
 
 void Model::TakeInModelData(std::string &file_name) {
+  prior_prob.resize(kNumDigits, 0);
   feature_prob_ = vector<vector<vector<vector<double>>>>(
       kImageSize, vector<vector<vector<double>>>(
                       kImageSize, vector<vector<double>>(
                                       kNumShades, vector<double>(kNumDigits))));
+  
   std::ifstream new_file(file_name);
 
   std::string line;
@@ -110,6 +112,8 @@ void Model::TakeInModelData(std::string &file_name) {
     std::istringstream ss(line);
     std::string feature;
     for (size_t num = 0; num < kNumDigits; ++num) {
+      ss >> feature;
+      prior_prob[num] = std::stod(feature);
       for (size_t shade = 0; shade < kNumShades; ++shade) {
         for (size_t row = 0; row < kNumDigits; ++row) {
           for (size_t col = 0; col < kNumDigits; ++col) {
@@ -144,6 +148,10 @@ Model::GetFeatureCount() {
 std::vector<std::vector<std::vector<std::vector<double>>>>
 Model::GetFeatureProbability() {
   return feature_prob_;
+}
+
+std::vector<double> Model::GetPriorProbability() {
+  return prior_prob;
 }
 
 }  // namespace naivebayes

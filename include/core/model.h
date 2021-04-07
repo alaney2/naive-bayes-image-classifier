@@ -55,6 +55,7 @@ class Model {
   
   std::vector<Image> GetImages();
   std::vector<std::vector<std::vector<std::vector<int>>>> GetFeatureCount();
+  std::vector<double> GetPriorProbability();
   std::vector<std::vector<std::vector<std::vector<double>>>> GetFeatureProbability();
   
  private:
