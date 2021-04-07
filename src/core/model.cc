@@ -98,7 +98,7 @@ void Model::WriteDataToFile(std::string &file_name) {
   new_file.close();
 }
 
-void Model::TakeInModelData(std::string &file_name) {
+void Model::LoadModelData(std::string &file_name) {
   prior_prob.resize(kNumDigits, 0);
   feature_prob_ = vector<vector<vector<vector<double>>>>(
       kImageSize, vector<vector<vector<double>>>(

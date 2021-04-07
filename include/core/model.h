@@ -48,10 +48,10 @@ class Model {
   void WriteDataToFile(std::string &file_name);
   
   /**
-   * Stores feature probabilities
+   * Reads a file and stores feature probabilities and prior probabilities
    * @param file_name to take in data from
    */
-  void TakeInModelData(std::string &file_name);
+  void LoadModelData(std::string &file_name);
   
   std::vector<Image> GetImages();
   std::vector<std::vector<std::vector<std::vector<int>>>> GetFeatureCount();

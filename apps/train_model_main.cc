@@ -22,7 +22,7 @@ int main() {
 //  std::cout << model.GetFeatureProbability()[0][0][0][0] << std::endl;
 //  std::cout << model.GetFeatureProbability()[0][0][0][5] << std::endl;
   
-//  model.TakeInModelData(new_file);
+//  model.LoadModelData(new_file);
 //  std::cout << model.GetFeatureProbability()[0][0][0][0] << std::endl;
 //  std::cout << model.GetFeatureProbability()[0][0][0][5] << std::endl;
   
