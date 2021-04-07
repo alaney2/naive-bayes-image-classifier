@@ -13,7 +13,7 @@ class Model {
   void CalculatePriorProbabilities();
   void CalculateFeatureProbabilities();
   void TrainModel();
-  void WriteDataToFile();
+  void WriteDataToFile(std::string &file_name);
   void TakeInModelData();
   
   std::vector<Image> GetImages();

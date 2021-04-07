@@ -17,6 +17,10 @@ void Model::ParseFile(std::string& file_path) {
   std::ifstream input(file_path);
   prior_count.resize(kNumDigits, 0);
   
+  if (!input) {
+    return;
+  }
+  
   while (!input.eof()) {
     Image image;
     input >> image;
@@ -68,12 +72,11 @@ void Model::CalculateFeatureProbabilities() {
   }
 }
 
-void Model::WriteDataToFile() {
+void Model::WriteDataToFile(std::string &file_name) {
   std::fstream new_file;
-  new_file.open(kModelFile_, std::fstream::in | std::fstream::out | std::fstream::app);
-//  new_file.open(kModelFile_, std::ios::out);
+//  new_file.open(file_name);
   if (!new_file) {
-    new_file.open(kModelFile_, std::fstream::in | std::fstream::out | std::fstream::trunc);
+    new_file.open(file_name);
     std::cout << "here" << std::endl;
     for (size_t num = 0; num < kNumDigits; ++num) {
       for (size_t shade = 0; shade < kNumShades; ++shade) {

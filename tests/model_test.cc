@@ -43,6 +43,8 @@ TEST_CASE("Model") {
   SECTION("Images") {
     REQUIRE(model.GetImages().size() == 4);
   }
+  std::string path = "model.txt";
+  model.WriteDataToFile(path);
 }
 
 TEST_CASE("Probabilities") {
