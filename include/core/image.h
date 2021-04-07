@@ -18,13 +18,13 @@ class Image {
  public:
   friend std::istream& operator>>(std::istream& is, Image& image);
   friend std::ostream& operator<<(std::ostream& is, Image& image);
-  int GetClass();
+  size_t GetClass();
   std::vector<std::vector<int>> GetShades();
   
   std::vector<std::vector<int>> shades_;
   
  private:
-  int class_;
+  size_t class_;
 };
 
 }

@@ -15,18 +15,10 @@ class Model {
   void TrainModel();
   void WriteDataToFile();
   void TakeInModelData();
-  void Initialize4DVector(std::vector<std::vector<std::vector<std::vector<double>>>> &vec);
   
   std::vector<Image> GetImages();
-
-//  std::array<double, kNumDigits> prior_count_ = { 0 };
   
-//  std::array<double, kNumDigits> prior_prob_ = { 0 };
-
-//  double feature_count_[kImageSize][kImageSize][kNumShades][kNumDigits];
-//  double feature_prob_[kImageSize][kImageSize][kNumShades][kNumDigits];
-  
-  std::vector<std::vector<std::vector<std::vector<double>>>> feature_count;
+  std::vector<std::vector<std::vector<std::vector<int>>>> feature_count;
   std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob;
   std::vector<Image> images_;
 
@@ -36,7 +28,7 @@ class Model {
   size_t kTotalImages = 5000;
   double constant_ = 1;
 
-  std::vector<int> prior_count;
+  std::vector<size_t> prior_count;
   std::vector<double> prior_prob;
 };
 

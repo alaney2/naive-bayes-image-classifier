@@ -13,15 +13,27 @@ int main() {
   std::string file = "../data/sample.txt";
   model.ParseFile(file);
   model.TrainModel();
-//  model.WriteDataToFile();
+  model.WriteDataToFile();
   
   std::cout << model.feature_prob[0][0][0][4] << std::endl;
+//  std::cout << model.images_[0].GetShades()[0][0] << std::endl;
+//  std::cout << model.images_[0].GetClass() << std::endl;
 
-  for (size_t i = 0; i < 28; ++i) {
-    for (size_t j = 0; j < 28; ++j) {
-      std::cout << model.images_[0].GetShades()[i][j];
+  for (size_t k = 0; k < model.images_.size(); ++k) {
+    std::cout << model.images_[k].GetClass() << std::endl;
+    for (size_t i = 0; i < 28; ++i) {
+      for (size_t j = 0; j < 28; ++j) {
+        std::cout << model.images_[k].GetShades()[i][j];
+      }
+      std::cout << std::endl;
     }
-    std::cout << std::endl;
   }
+
+//  for (size_t i = 0; i < 28; ++i) {
+//    for (size_t j = 0; j < 28; ++j) {
+//      std::cout << model.images_[3].GetShades()[i][j];
+//    }
+//    std::cout << std::endl;
+//  }
   return 0;
 }

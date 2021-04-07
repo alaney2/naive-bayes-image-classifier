@@ -17,11 +17,10 @@ void Model::ParseFile(std::string& file_path) {
   std::ifstream input(file_path);
   prior_count.resize(kNumDigits, 0);
   
-  Image image;
   while (!input.eof()) {
+    Image image;
     input >> image;
     prior_count[image.GetClass()] += 1;
-//    prior_count_[image.GetClass()] += 1;
     images_.push_back(image);
   }
 
@@ -34,12 +33,11 @@ void Model::CalculatePriorProbabilities() {
   
   for (size_t i = 0; i < prior_prob.size(); ++i) {
     prior_prob[i] = log((constant_ + prior_count[i]) / static_cast<double>(kNumDigits * constant_ + kTotalImages));
-//    prior_prob_[i] = log((constant_ + prior_count_[i]) / static_cast<double>(kNumDigits * constant_ + kTotalImages));
   }
 }
 
 void Model::TrainModel() {
-  Initialize4DVector(feature_count);
+  feature_count = vector<vector<vector<vector<int>>>>(kImageSize,vector<vector<vector<int>>>(kImageSize,vector<vector<int>>(kNumShades,vector<int>(kNumDigits))));
   
   for (Image & image : images_) {
     for (size_t row = 0; row < kImageSize; ++row) {
@@ -56,7 +54,7 @@ void Model::TrainModel() {
 }
 
 void Model::CalculateFeatureProbabilities() {
-  Initialize4DVector(feature_prob);
+  feature_prob = vector<vector<vector<vector<double>>>>(kImageSize,vector<vector<vector<double>>>(kImageSize,vector<vector<double>>(kNumShades,vector<double>(kNumDigits))));
 
   for (size_t row = 0; row < kImageSize; ++row) {
     for (size_t col = 0; col < kImageSize; ++col) {
@@ -118,27 +116,6 @@ void Model::TakeInModelData() {
 
 std::vector<Image> Model::GetImages() {
   return images_;
-}
-
-void Model::Initialize4DVector(
-    std::vector<std::vector<std::vector<std::vector<double>>>> &vec) {
-  
-//  vector<double> level4(kNumDigits, 0);
-//  vector<vector<double>> level3(kNumShades, level4);
-//  vector<vector<vector<double>>> level2(kImageSize, level3);
-  
-  for (size_t row = 0; row < kImageSize; ++row) {
-    vec.emplace_back();
-    for (size_t col = 0; col < kImageSize; ++col) {
-      vec[row].emplace_back();
-      for (size_t shade = 0; shade < kNumShades; ++shade) {
-        vec[row][col].emplace_back();
-        for (size_t num = 0; num < kNumDigits; ++num) {
-          vec[row][col][shade].emplace_back(0);
-        }
-      }
-    }
-  }
 }
 
 }  // namespace naivebayes
