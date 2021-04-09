@@ -8,23 +8,14 @@ int main() {
   // and saves the trained model to a file.
 
   std::cout << "Welcome to " << naivebayes::Model().GetBestClass() << std::endl;
-
+  
   naivebayes::Model model;
-  std::string file = "../data/training.txt";
-  model.ParseFile(file);
-  model.TrainModel();
-  std::string new_file = "../data/test_model.txt";
-  
-  std::string model_file = "../data/model.txt";
-  model.WriteDataToFile(model_file);
-
-  model.WriteDataToFile(new_file);
-//  std::cout << model.GetFeatureProbability()[0][0][0][0] << std::endl;
-//  std::cout << model.GetFeatureProbability()[0][0][0][5] << std::endl;
-  
-//  model.LoadModelData(new_file);
-//  std::cout << model.GetFeatureProbability()[0][0][0][0] << std::endl;
-//  std::cout << model.GetFeatureProbability()[0][0][0][5] << std::endl;
-  
+  std::string file = "../data/model.txt";
+  model.LoadModelData(file);
+  std::cout << model.GetPriorProbability()[0] << std::endl;
+  std::cout << model.GetFeatureProbability()[0][0][0][1] << std::endl;
+  for (int i = 0; i < 10; i++) {
+    std::cout << model.GetPriorProbability()[i] << std::endl;
+  }
   return 0;
 }

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <array>
 #include <string>
 #include <vector>
@@ -59,9 +61,8 @@ class Model {
   std::vector<std::vector<std::vector<std::vector<double>>>> GetFeatureProbability();
   
  private:
-  std::string kFilePath_ = "../data/training.txt";
-  size_t kTotalImages = 5000; 
-  double constant_ = 1;
+  size_t kTotalImages = 5000;
+  const double constant_ = 1;
 
   std::vector<Image> images_;
   std::vector<std::vector<std::vector<std::vector<int>>>> feature_count_;

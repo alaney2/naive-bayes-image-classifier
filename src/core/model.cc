@@ -27,7 +27,7 @@ void Model::ParseFile(std::string &file_path) {
     prior_count[image.GetClass()] += 1;
     images_.push_back(image);
   }
-
+  
   CalculatePriorProbabilities();
   input.close();
 }
@@ -51,11 +51,8 @@ void Model::TrainModel() {
   for (Image &image : images_) {
     for (size_t row = 0; row < kImageSize; ++row) {
       for (size_t col = 0; col < kImageSize; ++col) {
-        if (image.GetShades()[row][col] == 0) {
-          feature_count_[row][col][0][image.GetClass()] += 1;
-        } else {
-          feature_count_[row][col][1][image.GetClass()] += 1;
-        }
+        size_t shade = image.GetShades()[row][col];
+          feature_count_[row][col][shade][image.GetClass()] += 1;
       }
     }
   }
@@ -108,21 +105,20 @@ void Model::LoadModelData(std::string &file_name) {
   std::ifstream new_file(file_name);
 
   std::string line;
-  while (getline(new_file, line)) {
-    std::istringstream ss(line);
-    std::string feature;
+  while (!new_file.eof()) {
+
     for (size_t num = 0; num < kNumDigits; ++num) {
-      ss >> feature;
-      prior_prob[num] = std::stod(feature);
+      getline(new_file, line);
+      prior_prob[num] = std::stod(line);
+      
       for (size_t shade = 0; shade < kNumShades; ++shade) {
-        for (size_t row = 0; row < kNumDigits; ++row) {
-          for (size_t col = 0; col < kNumDigits; ++col) {
-            //            while (ss >> feature) {
-            std::cout << "here" << std::endl;
+        for (size_t col = 0; col < kImageSize; ++col) {
+          std::string feature;
+          getline(new_file, line);
+          std::istringstream ss(line);
+          for (size_t row = 0; row < kImageSize; ++row) {
             ss >> feature;
-            std::cout << "there" << std::endl;
             feature_prob_[row][col][shade][num] = std::stod(feature);
-            //            }
           }
         }
       }

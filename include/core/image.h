@@ -1,11 +1,8 @@
-#ifndef NAIVE_BAYES_IMAGE_H
-#define NAIVE_BAYES_IMAGE_H
+#pragma once
 
 #include <cstddef>
 #include <iostream>
 #include <vector>
-
-//#include "model.h"
 
 namespace naivebayes {
 
@@ -27,12 +24,10 @@ class Image {
   size_t GetClass();
   std::vector<std::vector<int>> GetShades();
   
-  std::vector<std::vector<int>> shades_;
   
  private:
   size_t class_;
+  std::vector<std::vector<int>> shades_;
 };
 
 }
-
-#endif  // NAIVE_BAYES_IMAGE_H
