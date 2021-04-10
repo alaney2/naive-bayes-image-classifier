@@ -22,7 +22,7 @@ class Image {
   friend std::istream& operator>>(std::istream& is, Image& image);
   
   size_t GetClass();
-  std::vector<std::vector<int>> GetShades();
+  size_t GetShade(size_t row, size_t col);
   
   
  private:

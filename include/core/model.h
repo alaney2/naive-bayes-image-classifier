@@ -55,14 +55,16 @@ class Model {
    */
   void LoadModelData(std::string &file_name);
   
+  double GetFeatureCount(size_t row, size_t col, size_t shade, size_t num);
+  double GetPriorProbability(size_t num);
+  double GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num);
+  void CountFeatures();
+
   std::vector<Image> GetImages();
-  std::vector<std::vector<std::vector<std::vector<int>>>> GetFeatureCount();
-  std::vector<double> GetPriorProbability();
-  std::vector<std::vector<std::vector<std::vector<double>>>> GetFeatureProbability();
-  
+
  private:
-  size_t kTotalImages = 5000;
-  const double constant_ = 1;
+  size_t kTotalImages = 0;
+  const double constant_ = 1.0;
 
   std::vector<Image> images_;
   std::vector<std::vector<std::vector<std::vector<int>>>> feature_count_;

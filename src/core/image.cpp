@@ -28,8 +28,8 @@ std::istream& operator>>(std::istream &is, Image &image) {
 size_t Image::GetClass() {
   return class_;
 }
-std::vector<std::vector<int>> Image::GetShades() {
-  return shades_;
+size_t Image::GetShade(size_t row, size_t col) {
+  return shades_[row][col];
 }
 
 }

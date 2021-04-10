@@ -10,7 +10,7 @@ using std::vector;
 namespace naivebayes {
 
 std::string Model::GetBestClass() const {
-  return "CS 126";
+  return "Ur mum";
 }
 
 void Model::ParseFile(std::string &file_path) {
@@ -26,9 +26,9 @@ void Model::ParseFile(std::string &file_path) {
     input >> image;
     prior_count[image.GetClass()] += 1;
     images_.push_back(image);
+    kTotalImages += 1;
   }
   
-  CalculatePriorProbabilities();
   input.close();
 }
 
@@ -43,19 +43,8 @@ void Model::CalculatePriorProbabilities() {
 }
 
 void Model::TrainModel() {
-  feature_count_ = vector<vector<vector<vector<int>>>>(
-      kImageSize, vector<vector<vector<int>>>(
-                      kImageSize, vector<vector<int>>(
-                                      kNumShades, vector<int>(kNumDigits))));
-
-  for (Image &image : images_) {
-    for (size_t row = 0; row < kImageSize; ++row) {
-      for (size_t col = 0; col < kImageSize; ++col) {
-        size_t shade = image.GetShades()[row][col];
-          feature_count_[row][col][shade][image.GetClass()] += 1;
-      }
-    }
-  }
+  CalculatePriorProbabilities();
+  CountFeatures();
   CalculateFeatureProbabilities();
 }
 
@@ -132,22 +121,36 @@ std::ostream &operator<<(std::ostream &os, Model &model) {
   return os;
 }
 
+void Model::CountFeatures() {
+  feature_count_ = vector<vector<vector<vector<int>>>>(
+      kImageSize, vector<vector<vector<int>>>(
+          kImageSize, vector<vector<int>>(
+              kNumShades, vector<int>(kNumDigits))));
+  
+  for (Image &image : images_) {
+    for (size_t row = 0; row < kImageSize; ++row) {
+      for (size_t col = 0; col < kImageSize; ++col) {
+        size_t shade = image.GetShades()[row][col];
+        feature_count_[row][col][shade][image.GetClass()] += 1;
+      }
+    }
+  }
+}
+
 std::vector<Image> Model::GetImages() {
   return images_;
 }
 
-std::vector<std::vector<std::vector<std::vector<int>>>>
-Model::GetFeatureCount() {
-  return feature_count_;
+double Model::GetFeatureCount(size_t row, size_t col, size_t shade, size_t num) {
+  return feature_count_[row][col][shade][num];
 }
 
-std::vector<std::vector<std::vector<std::vector<double>>>>
-Model::GetFeatureProbability() {
-  return feature_prob_;
+double Model::GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num) {
+  return feature_prob_[row][col][shade][num];
 }
 
-std::vector<double> Model::GetPriorProbability() {
-  return prior_prob;
+double Model::GetPriorProbability(size_t num) {
+  return prior_prob[num];
 }
 
 }  // namespace naivebayes
