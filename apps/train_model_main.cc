@@ -12,10 +12,10 @@ int main() {
   naivebayes::Model model;
   std::string file = "../data/model.txt";
   model.LoadModelData(file);
-  std::cout << model.GetPriorProbability()[0] << std::endl;
-  std::cout << model.GetFeatureProbability()[0][0][0][1] << std::endl;
+  std::cout << model.GetPriorProbability(0) << std::endl;
+  std::cout << model.GetFeatureProbability(0,0,0,1) << std::endl;
   for (int i = 0; i < 10; i++) {
-    std::cout << model.GetPriorProbability()[i] << std::endl;
+    std::cout << model.GetPriorProbability(i) << std::endl;
   }
   return 0;
 }

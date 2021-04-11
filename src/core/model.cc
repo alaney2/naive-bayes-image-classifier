@@ -130,7 +130,7 @@ void Model::CountFeatures() {
   for (Image &image : images_) {
     for (size_t row = 0; row < kImageSize; ++row) {
       for (size_t col = 0; col < kImageSize; ++col) {
-        size_t shade = image.GetShades()[row][col];
+        size_t shade = image.GetShade(row, col);
         feature_count_[row][col][shade][image.GetClass()] += 1;
       }
     }
