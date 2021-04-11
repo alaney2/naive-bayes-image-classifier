@@ -51,7 +51,7 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND CORE_SOURCE_FILES src/core/model.cc
                                 src/core/image.cpp
-        src/core/classifier.cpp
+                                src/core/classifier.cpp
                                 src/core/common.cpp)
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
