@@ -5,12 +5,13 @@
 #include <vector>
 
 #include "image.h"
+#include "common.h"
 
 namespace naivebayes {
 
 class Model {
  public:
-  friend std::ostream& operator<<(std::ostream& os, Model& model);
+//  friend std::ostream& operator<<(std::ostream& os, Model& model);
 
   /**
    * Predicts the class

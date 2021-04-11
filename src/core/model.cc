@@ -37,8 +37,8 @@ void Model::CalculatePriorProbabilities() {
 
   for (size_t i = 0; i < prior_prob.size(); ++i) {
     prior_prob[i] =
-        log((constant_ + prior_count[i]) /
-            static_cast<double>(kNumDigits * constant_ + kTotalImages));
+        log((constant_ + static_cast<double>(prior_count[i])) /
+            (kNumDigits * constant_ + static_cast<double>(kTotalImages)));
   }
 }
 
@@ -57,10 +57,10 @@ void Model::CalculateFeatureProbabilities() {
   for (size_t row = 0; row < kImageSize; ++row) {
     for (size_t col = 0; col < kImageSize; ++col) {
       for (size_t shade = 0; shade < kNumShades; ++shade) {
-        for (size_t c = 0; c < kNumDigits; ++c) {
-          feature_prob_[row][col][shade][c] =
-              log((constant_ + feature_count_[row][col][shade][c]) /
-                  (static_cast<double>(2 * constant_ + prior_count[c])));
+        for (size_t num = 0; num < kNumDigits; ++num) {
+          feature_prob_[row][col][shade][num] =
+              log((constant_ + feature_count_[row][col][shade][num]) /
+                  (2 * constant_ + static_cast<double>(prior_count[num])));
         }
       }
     }
@@ -115,11 +115,11 @@ void Model::LoadModelData(std::string &file_name) {
   }
 }
 
-std::ostream &operator<<(std::ostream &os, Model &model) {
-  std::string line;
-
-  return os;
-}
+//std::ostream &operator<<(std::ostream &os, Model &model) {
+//  std::string line;
+//
+//  return os;
+//}
 
 void Model::CountFeatures() {
   feature_count_ = vector<vector<vector<vector<int>>>>(
@@ -135,7 +135,7 @@ void Model::CountFeatures() {
       }
     }
   }
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 
 std::vector<Image> Model::GetImages() {
   return images_;
