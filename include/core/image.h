@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <iostream>
 #include <vector>
+#include "common.h"
 
 namespace naivebayes {
 

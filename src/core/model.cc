@@ -37,8 +37,8 @@ void Model::CalculatePriorProbabilities() {
 
   for (size_t i = 0; i < prior_prob.size(); ++i) {
     prior_prob[i] =
-        log((constant_ + static_cast<double>(prior_count[i])) /
-            (kNumDigits * constant_ + static_cast<double>(kTotalImages)));
+        (constant_ + static_cast<double>(prior_count[i])) /
+            (kNumDigits * constant_ + static_cast<double>(kTotalImages));
   }
 }
 
@@ -59,8 +59,8 @@ void Model::CalculateFeatureProbabilities() {
       for (size_t shade = 0; shade < kNumShades; ++shade) {
         for (size_t num = 0; num < kNumDigits; ++num) {
           feature_prob_[row][col][shade][num] =
-              log((constant_ + feature_count_[row][col][shade][num]) /
-                  (2 * constant_ + static_cast<double>(prior_count[num])));
+              (constant_ + feature_count_[row][col][shade][num]) /
+                  (2 * constant_ + static_cast<double>(prior_count[num]));
         }
       }
     }
