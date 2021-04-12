@@ -20,11 +20,11 @@ class Image {
   
   size_t GetClass() const;
   size_t GetShade(size_t row, size_t col);
-  
+  void SetShade(size_t row, size_t col, size_t shade);
   
  private:
   size_t class_;
-  std::vector<std::vector<int>> shades_;
+  std::vector<std::vector<size_t>> shades_;
 };
 
 }

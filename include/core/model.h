@@ -11,27 +11,35 @@ namespace naivebayes {
 
 class Model {
  public:
-//  friend std::ostream& operator<<(std::ostream& os, Model& model);
+  Model();
+  
+  friend std::ostream& operator<<(std::ostream& os, Model& model);
+  
+  friend std::istream& operator>>(std::istream& is, Model& model);
+  
   /**
-   * Reads given file and stores images and priors in vectors
-   * Calls CalculatePriorProbabilities()
+   * Reads given file and stores images and priors
    * @param file_path given file
    */
   void ParseFile(std::string& file_path);
   
   /**
-   * Calculates and stores logarithmic probabilities of priors in a vector
+   * Calculates prior probabilities
    */
   void CalculatePriorProbabilities();
 
   /**
-   * Gets a count of all the features and stores them in a 4d vector
-   * Calls CalculateFeatureProbabilities()
+   * Calculates everything needed for Bayes' Theorem
    */
   void TrainModel();
 
   /**
-   * Calculates and stores logarithmic probabilities of features in a 4d vector
+   * 
+   */
+  void CountFeatures();
+
+  /**
+   * Calculates feature probabilities
    */
   void CalculateFeatureProbabilities();
   
@@ -52,7 +60,6 @@ class Model {
   const double GetFeatureCount(size_t row, size_t col, size_t shade, size_t num);
   const double GetPriorProbability(size_t num);
   const double GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num);
-  void CountFeatures();
 
   const std::vector<Image> GetImages();
 
@@ -62,10 +69,11 @@ class Model {
 
   std::vector<Image> images_;
   std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_;
+        // (row, column, shade, number)
   std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob_;
-
-  std::vector<size_t> prior_count;
-  std::vector<double> prior_prob;
+        // (row, column, shade, number)
+  std::vector<size_t> prior_count;  // (number)
+  std::vector<double> prior_prob;   // (number)
 };
 
 }  // namespace naivebayes
