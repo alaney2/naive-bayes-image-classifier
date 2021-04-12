@@ -7,8 +7,8 @@
 // TODO: You may want to change main's signature to take in argc and argv
 int main() {
   // Parses images
-  naivebayes::Model model;
-  std::string parse_path = "../data/testing.txt";
+  naivebayes::Model model(28);
+  std::string parse_path = "../data/training.txt";
   model.ParseFile(parse_path);
   
   // Trains model and saves data
@@ -19,14 +19,15 @@ int main() {
   new_file << model;
   */
   
-  // Loads data from model
-//  std::string file = "../data/model.txt";
-//  std::ifstream load_file(file);
-//  load_file >> model;
-//  
-//  // Calculates model accuracy
-//  naivebayes::Classifier classifier(model);
-//  std::cout << classifier.CalculateAccuracy(model.GetImages());
+// Loads data from model
+  std::string file = "../data/model.txt";
+  std::ifstream load_file(file);
+  load_file >> model;
+//  std::cout << model.GetFeatureProbability(0,0,0,0) << std::endl;
+
+  // Calculates model accuracy
+  naivebayes::Classifier classifier(model);
+  std::cout << classifier.CalculateAccuracy(model.GetImages());
   
   return 0;
 }

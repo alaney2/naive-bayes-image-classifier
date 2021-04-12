@@ -11,7 +11,7 @@ namespace naivebayes {
 
 class Model {
  public:
-  Model();
+  Model(size_t image_size);
   
   friend std::ostream& operator<<(std::ostream& os, Model& model);
   
@@ -64,9 +64,11 @@ class Model {
   const std::vector<Image> GetImages();
 
  private:
+  size_t kImageSize_;
   size_t image_count_ = 0;
   const double kSmoothingFactor_ = 1.0;
-
+//  static size_t kImageSize_;
+  
   std::vector<Image> images_;
   std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_;
         // (row, column, shade, number)
