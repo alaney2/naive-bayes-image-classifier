@@ -96,11 +96,11 @@ void Model::LoadModelData(std::string &file_name) {
       prior_prob[num] = std::stod(line);
       
       for (size_t shade = 0; shade < kNumShades; ++shade) {
-        for (size_t col = 0; col < kImageSize; ++col) {
+        for (size_t row = 0; row < kImageSize; ++row) {
           std::string feature;
           getline(new_file, line);
           std::istringstream ss(line);
-          for (size_t row = 0; row < kImageSize; ++row) {
+          for (size_t col = 0; col < kImageSize; ++col) {
             ss >> feature;
             feature_prob_[row][col][shade][num] = std::stod(feature);
           }
