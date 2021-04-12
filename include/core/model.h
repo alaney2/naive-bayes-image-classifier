@@ -58,10 +58,10 @@ class Model {
 
  private:
   size_t image_count_ = 0;
-  const double constant_ = 1.0;
+  const double kSmoothingFactor_ = 1.0;
 
   std::vector<Image> images_;
-  std::vector<std::vector<std::vector<std::vector<int>>>> feature_count_;
+  std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_;
   std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob_;
 
   std::vector<size_t> prior_count;

@@ -32,8 +32,8 @@ void Model::CalculatePriorProbabilities() {
   prior_prob.resize(kNumDigits, 0);
 
   for (size_t num = 0; num < prior_prob.size(); ++num) {
-    prior_prob[num] = (constant_ + static_cast<double>(prior_count[num])) /
-            (kNumDigits * constant_ + static_cast<double>(image_count_));
+    prior_prob[num] = (kSmoothingFactor_ + static_cast<double>(prior_count[num])) /
+            (kNumDigits * kSmoothingFactor_ + static_cast<double>(image_count_));
   }
 }
 
@@ -54,8 +54,8 @@ void Model::CalculateFeatureProbabilities() {
       for (size_t shade = 0; shade < kNumShades; ++shade) {
         for (size_t num = 0; num < kNumDigits; ++num) {
           feature_prob_[row][col][shade][num] =
-              (constant_ + feature_count_[row][col][shade][num]) /
-                  (2 * constant_ + static_cast<double>(prior_count[num]));
+              (kSmoothingFactor_ + static_cast<double>(feature_count_[row][col][shade][num])) /
+                  (kNumShades * kSmoothingFactor_ + static_cast<double>(prior_count[num]));
         }
       }
     }
@@ -117,10 +117,10 @@ void Model::LoadModelData(std::string &file_name) {
 //}
 
 void Model::CountFeatures() {
-  feature_count_ = vector<vector<vector<vector<int>>>>(
-      kImageSize, vector<vector<vector<int>>>(
-          kImageSize, vector<vector<int>>(
-              kNumShades, vector<int>(kNumDigits))));
+  feature_count_ = vector<vector<vector<vector<size_t>>>>(
+      kImageSize, vector<vector<vector<size_t>>>(
+          kImageSize, vector<vector<size_t>>(
+              kNumShades, vector<size_t>(kNumDigits))));
   
   for (Image &image : images_) {
     for (size_t row = 0; row < kImageSize; ++row) {
