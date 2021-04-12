@@ -12,13 +12,6 @@ namespace naivebayes {
 class Model {
  public:
 //  friend std::ostream& operator<<(std::ostream& os, Model& model);
-
-  /**
-   * Predicts the class
-   * @return string of class
-   */
-  std::string GetBestClass() const;
-  
   /**
    * Reads given file and stores images and priors in vectors
    * Calls CalculatePriorProbabilities()
@@ -56,15 +49,15 @@ class Model {
    */
   void LoadModelData(std::string &file_name);
   
-  double GetFeatureCount(size_t row, size_t col, size_t shade, size_t num);
-  double GetPriorProbability(size_t num);
-  double GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num);
+  const double GetFeatureCount(size_t row, size_t col, size_t shade, size_t num);
+  const double GetPriorProbability(size_t num);
+  const double GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num);
   void CountFeatures();
 
-  std::vector<Image> GetImages();
+  const std::vector<Image> GetImages();
 
  private:
-  size_t kTotalImages = 0;
+  size_t image_count_ = 0;
   const double constant_ = 1.0;
 
   std::vector<Image> images_;

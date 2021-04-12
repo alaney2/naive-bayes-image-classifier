@@ -9,10 +9,6 @@ using std::vector;
 
 namespace naivebayes {
 
-std::string Model::GetBestClass() const {
-  return "Ur mum";
-}
-
 void Model::ParseFile(std::string &file_path) {
   std::ifstream input(file_path);
   prior_count.resize(kNumDigits, 0);
@@ -26,7 +22,7 @@ void Model::ParseFile(std::string &file_path) {
     input >> image;
     prior_count[image.GetClass()] += 1;
     images_.push_back(image);
-    kTotalImages += 1;
+    image_count_ += 1;
   }
   
   input.close();
@@ -35,10 +31,9 @@ void Model::ParseFile(std::string &file_path) {
 void Model::CalculatePriorProbabilities() {
   prior_prob.resize(kNumDigits, 0);
 
-  for (size_t i = 0; i < prior_prob.size(); ++i) {
-    prior_prob[i] =
-        (constant_ + static_cast<double>(prior_count[i])) /
-            (kNumDigits * constant_ + static_cast<double>(kTotalImages));
+  for (size_t num = 0; num < prior_prob.size(); ++num) {
+    prior_prob[num] = (constant_ + static_cast<double>(prior_count[num])) /
+            (kNumDigits * constant_ + static_cast<double>(image_count_));
   }
 }
 
@@ -137,19 +132,19 @@ void Model::CountFeatures() {
   }
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 
-std::vector<Image> Model::GetImages() {
+const std::vector<Image> Model::GetImages() {
   return images_;
 }
 
-double Model::GetFeatureCount(size_t row, size_t col, size_t shade, size_t num) {
+const double Model::GetFeatureCount(size_t row, size_t col, size_t shade, size_t num) {
   return feature_count_[row][col][shade][num];
 }
 
-double Model::GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num) {
+const double Model::GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num) {
   return feature_prob_[row][col][shade][num];
 }
 
-double Model::GetPriorProbability(size_t num) {
+const double Model::GetPriorProbability(size_t num) {
   return prior_prob[num];
 }
 

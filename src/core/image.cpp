@@ -25,7 +25,7 @@ std::istream& operator>>(std::istream &is, Image &image) {
   return is;
 }
 
-size_t Image::GetClass() {
+size_t Image::GetClass() const {
   return class_;
 }
 size_t Image::GetShade(size_t row, size_t col) {

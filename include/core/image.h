@@ -18,7 +18,7 @@ class Image {
    */
   friend std::istream& operator>>(std::istream& is, Image& image);
   
-  size_t GetClass();
+  size_t GetClass() const;
   size_t GetShade(size_t row, size_t col);
   
   
