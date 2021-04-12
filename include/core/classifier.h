@@ -18,11 +18,10 @@ class Classifier {
   size_t CalculateLikelihoodScores(Image& image);
 
   size_t GetBestClass();
+  
  private:
   Model model_;
   std::vector<double> scores_;
-  std::vector<size_t> predictions_;
-  
 };
 
 }

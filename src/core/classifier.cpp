@@ -7,16 +7,11 @@ namespace naivebayes {
 Classifier::Classifier(Model& model) : model_(model){ }
 
 double Classifier::CalculateAccuracy(const std::vector<Image>& images) {
-  predictions_.resize(images.size(), 0);
-  for (size_t i = 0; i < predictions_.size(); ++i) {
-    predictions_[i] = CalculateLikelihoodScores(const_cast<Image&>(images[i]));
-  }
-  
   size_t count = 0;
-  for (size_t i = 0; i < predictions_.size(); ++i) {
+  for (size_t i = 0; i < images.size(); ++i) {
+    size_t predicted = CalculateLikelihoodScores(const_cast<Image&>(images[i]));
     size_t actual = images[i].GetClass();
-//    std::cout << actual << " " << predicted << std::endl;
-    if (actual == predictions_[i]) {
+    if (actual == predicted) {
       ++count;
     }
   }

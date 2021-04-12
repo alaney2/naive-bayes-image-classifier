@@ -3,6 +3,7 @@
 namespace naivebayes {
 
 std::istream& operator>>(std::istream &is, Image &image) {
+  std::vector<char> shaded_chars = { '+', '#'};
   std::string digit;
   getline(is, digit);
 
@@ -14,11 +15,16 @@ std::istream& operator>>(std::istream &is, Image &image) {
     getline(is, line);
     
     for (size_t col = 0; col < kImageSize; ++col) {
-      if (line[col] == '+' || line[col] == '#') {
+      if (std::count(shaded_chars.begin(), shaded_chars.end(), line[col])) {
         image.shades_[row][col] = 1;
       } else {
         image.shades_[row][col] = 0;
       }
+//      if (line[col] == '+' || line[col] == '#') {
+//        image.shades_[row][col] = 1;
+//      } else {
+//        image.shades_[row][col] = 0;
+//      }
     }
   }
 
@@ -28,6 +34,7 @@ std::istream& operator>>(std::istream &is, Image &image) {
 size_t Image::GetClass() const {
   return class_;
 }
+
 size_t Image::GetShade(size_t row, size_t col) {
   return shades_[row][col];
 }
