@@ -12,13 +12,13 @@ int main() {
   naivebayes::Model model;
   std::string path = "../data/training.txt";
   model.ParseFile(path);
-  model.TrainModel();
-  std::string write = "../data/model.txt";
-  std::ofstream new_file(write);
-  new_file << model;
-//  model.WriteDataToFile(write);
-//  std::string file = "../data/model.txt";
-//  model.LoadModelData(file);
+//  model.TrainModel();
+//  std::string write = "../data/model.txt";
+//  std::ofstream new_file(write);
+//  new_file << model;
+  std::string file = "../data/model.txt";
+  std::ifstream load_file(file);
+  load_file >> model;
   
 //  naivebayes::Classifier classifier(model);
 

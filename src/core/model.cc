@@ -144,26 +144,23 @@ std::ostream &operator<<(std::ostream &os, Model &model) {
 
 std::istream &operator>>(std::istream &is, Model &model) {
   std::string line;
+  
+  for (size_t num = 0; num < kNumDigits; ++num) {
+    getline(is, line);
+    model.prior_prob[num] = std::stod(line);
 
-//  while (!new_file.eof()) {
-//
-//    for (size_t num = 0; num < kNumDigits; ++num) {
-//      getline(new_file, line);
-//      prior_prob[num] = std::stod(line);
-//
-//      for (size_t shade = 0; shade < kNumShades; ++shade) {
-//        for (size_t row = 0; row < kImageSize; ++row) {
-//          std::string feature;
-//          getline(new_file, line);
-//          std::istringstream ss(line);
-//          for (size_t col = 0; col < kImageSize; ++col) {
-//            ss >> feature;
-//            feature_prob_[row][col][shade][num] = std::stod(feature);
-//          }
-//        }
-//      }
-//    }
-//  }
+    for (size_t shade = 0; shade < kNumShades; ++shade) {
+      for (size_t row = 0; row < kImageSize; ++row) {
+        std::string feature;
+        getline(is, line);
+        std::istringstream ss(line);
+        for (size_t col = 0; col < kImageSize; ++col) {
+          ss >> feature;
+          model.feature_prob_[row][col][shade][num] = std::stod(feature);
+        }
+      }
+    }
+  }
   
   return is;
 }
