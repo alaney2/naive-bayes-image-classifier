@@ -78,54 +78,6 @@ void Model::CalculateFeatureProbabilities() {
   }
 }
 
-void Model::WriteDataToFile(std::string &file_name) {
-  std::ofstream new_file(file_name);
-  
-  for (size_t num = 0; num < kNumDigits; ++num) {
-    new_file << prior_prob[num] << std::endl;
-    for (size_t shade = 0; shade < kNumShades; ++shade) {
-      for (size_t row = 0; row < kImageSize; ++row) {
-        for (size_t col = 0; col < kImageSize; ++col) {
-          new_file << feature_prob_[row][col][shade][num] << " ";
-        }
-        new_file << std::endl;
-      }
-    }
-  }
-  new_file.close();
-}
-
-void Model::LoadModelData(std::string &file_name) {
-  prior_prob.resize(kNumDigits, 0);
-  feature_prob_ = vector<vector<vector<vector<double>>>>(
-      kImageSize, vector<vector<vector<double>>>(
-                      kImageSize, vector<vector<double>>(
-                                      kNumShades, vector<double>(kNumDigits))));
-  
-  std::ifstream new_file(file_name);
-
-  std::string line;
-  while (!new_file.eof()) {
-
-    for (size_t num = 0; num < kNumDigits; ++num) {
-      getline(new_file, line);
-      prior_prob[num] = std::stod(line);
-      
-      for (size_t shade = 0; shade < kNumShades; ++shade) {
-        for (size_t row = 0; row < kImageSize; ++row) {
-          std::string feature;
-          getline(new_file, line);
-          std::istringstream ss(line);
-          for (size_t col = 0; col < kImageSize; ++col) {
-            ss >> feature;
-            feature_prob_[row][col][shade][num] = std::stod(feature);
-          }
-        }
-      }
-    }
-  }
-}
-
 std::ostream &operator<<(std::ostream &os, Model &model) {
   for (size_t num = 0; num < kNumDigits; ++num) {
     os << model.prior_prob[num] << std::endl;
@@ -164,7 +116,6 @@ std::istream &operator>>(std::istream &is, Model &model) {
   
   return is;
 }
-
 
 const std::vector<Image> Model::GetImages() {
   return images_;
