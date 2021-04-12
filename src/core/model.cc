@@ -138,32 +138,32 @@ std::ostream &operator<<(std::ostream &os, Model &model) {
       }
     }
   }
+  
   return os;
 }
 
 std::istream &operator>>(std::istream &is, Model &model) {
   std::string line;
 
-  std::string line;
-  while (!new_file.eof()) {
-
-    for (size_t num = 0; num < kNumDigits; ++num) {
-      getline(new_file, line);
-      prior_prob[num] = std::stod(line);
-
-      for (size_t shade = 0; shade < kNumShades; ++shade) {
-        for (size_t row = 0; row < kImageSize; ++row) {
-          std::string feature;
-          getline(new_file, line);
-          std::istringstream ss(line);
-          for (size_t col = 0; col < kImageSize; ++col) {
-            ss >> feature;
-            feature_prob_[row][col][shade][num] = std::stod(feature);
-          }
-        }
-      }
-    }
-  }
+//  while (!new_file.eof()) {
+//
+//    for (size_t num = 0; num < kNumDigits; ++num) {
+//      getline(new_file, line);
+//      prior_prob[num] = std::stod(line);
+//
+//      for (size_t shade = 0; shade < kNumShades; ++shade) {
+//        for (size_t row = 0; row < kImageSize; ++row) {
+//          std::string feature;
+//          getline(new_file, line);
+//          std::istringstream ss(line);
+//          for (size_t col = 0; col < kImageSize; ++col) {
+//            ss >> feature;
+//            feature_prob_[row][col][shade][num] = std::stod(feature);
+//          }
+//        }
+//      }
+//    }
+//  }
   
   return is;
 }
