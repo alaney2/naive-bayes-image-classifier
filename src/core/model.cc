@@ -24,7 +24,7 @@ Model::Model() {
 
 void Model::ParseFile(std::string &file_path) {
   std::ifstream input(file_path);
-
+  
   if (!input) {
     return;
   }

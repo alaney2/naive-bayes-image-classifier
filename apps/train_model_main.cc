@@ -6,22 +6,26 @@
 
 // TODO: You may want to change main's signature to take in argc and argv
 int main() {
-  // TODO: Replace this with code that reads the training data, trains a model,
-  // and saves the trained model to a file.
-  
+  // Parses images
   naivebayes::Model model;
-  std::string path = "../data/training.txt";
-  model.ParseFile(path);
-//  model.TrainModel();
-//  std::string write = "../data/model.txt";
-//  std::ofstream new_file(write);
-//  new_file << model;
-  std::string file = "../data/model.txt";
-  std::ifstream load_file(file);
-  load_file >> model;
+  std::string parse_path = "../data/testing.txt";
+  model.ParseFile(parse_path);
   
+  // Trains model and saves data
+  /*
+  model.TrainModel();
+  std::string write = "../data/model.txt";
+  std::ofstream new_file(write);
+  new_file << model;
+  */
+  
+  // Loads data from model
+//  std::string file = "../data/model.txt";
+//  std::ifstream load_file(file);
+//  load_file >> model;
+//  
+//  // Calculates model accuracy
 //  naivebayes::Classifier classifier(model);
-
 //  std::cout << classifier.CalculateAccuracy(model.GetImages());
   
   return 0;
