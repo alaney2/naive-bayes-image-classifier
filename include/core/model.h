@@ -74,8 +74,8 @@ class Model {
         // (row, column, shade, number)
   std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob_;
         // (row, column, shade, number)
-  std::vector<size_t> prior_count;  // (number)
-  std::vector<double> prior_prob;   // (number)
+  std::vector<size_t> prior_count_;  // (number)
+  std::vector<double> prior_prob_;   // (number)
 };
 
 }  // namespace naivebayes
