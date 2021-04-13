@@ -13,6 +13,8 @@ TEST_CASE("Model") {
       "../../../../../../tests/testing_data.txt";
   model.ParseFile(file);
   model.TrainModel();
+  REQUIRE(model.GetImages().size() == 10);
+
   SECTION("Correct class") {
     REQUIRE(model.GetImages()[0].GetClass() == 0);
     REQUIRE(model.GetImages()[1].GetClass() == 1);
@@ -49,29 +51,60 @@ TEST_CASE("Model") {
     REQUIRE(model.GetImages()[9].GetShade(4, 4) == 0);
   }
 
-  SECTION("Feature count") {
+  SECTION("Shaded Feature count") {
+    REQUIRE(model.GetFeatureCount(4, 0, 1, 0) == 0);
+    REQUIRE(model.GetFeatureCount(1, 0, 1, 0) == 0);
+    REQUIRE(model.GetFeatureCount(2, 1, 1, 0) == 1);
+    REQUIRE(model.GetFeatureCount(1, 1, 1, 0) == 1);
+    REQUIRE(model.GetFeatureCount(2, 2, 1, 1) == 1);
+    REQUIRE(model.GetFeatureCount(0, 4, 1, 1) == 0);
+    REQUIRE(model.GetFeatureCount(2, 3, 1, 2) == 0);
+    REQUIRE(model.GetFeatureCount(1, 2, 1, 3) == 0);
+    REQUIRE(model.GetFeatureCount(1, 2, 1, 5) == 0);
+    REQUIRE(model.GetFeatureCount(2, 2, 1, 6) == 1);
+    REQUIRE(model.GetFeatureCount(4, 0, 1, 8) == 0);
+    REQUIRE(model.GetFeatureCount(4, 2, 1, 9) == 0);
+    REQUIRE(model.GetFeatureCount(3, 2, 1, 9) == 0);
+  }
+
+  SECTION("Unshaded feature count") {
     REQUIRE(model.GetFeatureCount(0, 0, 0, 0) == 1);
-    REQUIRE(model.GetFeatureCount(4, 4, 0, 3) == 1);
+    REQUIRE(model.GetFeatureCount(1, 3, 0, 3) == 0);
     REQUIRE(model.GetFeatureCount(3, 4, 0, 4) == 1);
-
-    REQUIRE(model.GetFeatureCount(4, 0, 1, 4) == 0);
-    REQUIRE(model.GetFeatureCount(1, 1, 1, 4) == 1);
-    REQUIRE(model.GetFeatureCount(3, 1, 1, 4) == 0);
+    REQUIRE(model.GetFeatureCount(0, 1, 0, 5) == 0);
+    REQUIRE(model.GetFeatureCount(3, 0, 0, 5) == 1);
+    REQUIRE(model.GetFeatureCount(0, 2, 0, 6) == 1);
+    REQUIRE(model.GetFeatureCount(1, 4, 0, 7) == 1);
+    REQUIRE(model.GetFeatureCount(1, 3, 0, 7) == 0);
+    REQUIRE(model.GetFeatureCount(4, 4, 0, 8) == 1);
+    REQUIRE(model.GetFeatureCount(2, 2, 0, 9) == 0);
   }
 
-  SECTION("Images") {
-    REQUIRE(model.GetImages().size() == 10);
+  SECTION("Shaded feature probabilities") {
+    REQUIRE(model.GetFeatureProbability(0,0,1,0) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(3,2,1,1) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(4,3,1,2) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(1,0,1,3) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(0,2,1,4) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(4,0,1,5) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(3,3,1,6) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(1,4,1,7) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(2,1,1,8) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(2,0,1,9) == Approx(0.3333333333));
   }
-}
 
-TEST_CASE("Probabilities") {
-  Model model(3);
-  Image image(3);
-  
-  //  REQUIRE(model.GetImages()[0].GetShades()[0][0] == 0);
-  //  REQUIRE(model.GetImages()[0].GetShades()[7][12] == 1);
-  //  REQUIRE(model.GetFeatureCount()[0][0][0][0] == 1);
-  //  REQUIRE(model.GetImages()[0].GetClass() == 5);
+  SECTION("Unshaded feature probabilities") {
+    REQUIRE(model.GetFeatureProbability(0,0,0,0) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(3,2,0,1) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(0,4,0,2) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(4,3,0,3) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(2,1,0,4) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(2,2,0,5) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(4,4,0,6) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(1,3,0,7) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(0,3,0,8) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(3,0,0,9) == Approx(0.6666666667));
+  }
 }
 
 TEST_CASE("Operator Overloading") {
