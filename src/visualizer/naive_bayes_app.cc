@@ -36,18 +36,23 @@ void NaiveBayesApp::mouseDrag(ci::app::MouseEvent event) {
 
 void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
-    case ci::app::KeyEvent::KEY_RETURN:
-//      naivebayes::Model model(kImageDimension);
-//      naivebayes::Classifier classifier(model);
-//      std::string file = "../data/model.txt";
-//      std::ifstream load_file(file);
-//      load_file >> model;
-//      current_prediction_ = classifier.CalculateLikelihoodScores(sketchpad_.GetImage());
+    case ci::app::KeyEvent::KEY_RETURN: {
+      naivebayes::Model model(kImageDimension);
+      std::string file = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model.txt";
+      std::ifstream load_file(file);
+      load_file >> model;
+      
+      naivebayes::Classifier classifier(model);
+      current_prediction_ =
+          classifier.CalculateLikelihoodScores(sketchpad_.GetImage());
       break;
+    }
 
     case ci::app::KeyEvent::KEY_DELETE:
       sketchpad_.Clear();
+      current_prediction_ = -1;
       break;
+      
   }
 }
 

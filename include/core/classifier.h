@@ -14,10 +14,10 @@ class Classifier {
   Classifier(Model& model);
 
   double CalculateAccuracy(const std::vector<Image> &images);
-  
-  size_t CalculateLikelihoodScores(Image image);
 
-  size_t GetBestClass();
+  int CalculateLikelihoodScores(Image image);
+
+  int GetBestClass();
   
  private:
   Model model_;

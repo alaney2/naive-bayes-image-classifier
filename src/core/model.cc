@@ -13,6 +13,16 @@ Model::Model(size_t image_size) {
   kImageSize_ = image_size;
   prior_count.resize(kNumDigits, 0);
   prior_prob.resize(kNumDigits, 0);
+  
+  feature_count_ = vector<vector<vector<vector<size_t>>>>(
+      kImageSize_, vector<vector<vector<size_t>>>(
+          kImageSize_, vector<vector<size_t>>(
+              kNumShades, vector<size_t>(kNumDigits))));
+  
+  feature_prob_ = vector<vector<vector<vector<double>>>>(
+      kImageSize_, vector<vector<vector<double>>>(
+          kImageSize_, vector<vector<double>>(
+              kNumShades, vector<double>(kNumDigits))));
 }
 
 void Model::ParseFile(std::string &file_path) {
@@ -31,15 +41,6 @@ void Model::ParseFile(std::string &file_path) {
   }
   
   input.close();
-  
-  feature_count_ = vector<vector<vector<vector<size_t>>>>(
-      kImageSize_, vector<vector<vector<size_t>>>(
-          kImageSize_, vector<vector<size_t>>(
-              kNumShades, vector<size_t>(kNumDigits))));
-  feature_prob_ = vector<vector<vector<vector<double>>>>(
-      kImageSize_, vector<vector<vector<double>>>(
-          kImageSize_, vector<vector<double>>(
-              kNumShades, vector<double>(kNumDigits))));
 }
 
 void Model::CalculatePriorProbabilities() {

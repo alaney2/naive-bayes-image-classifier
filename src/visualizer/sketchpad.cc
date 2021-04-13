@@ -64,6 +64,7 @@ void Sketchpad::Clear() {
     }
   }
 }
+
 Image Sketchpad::GetImage() {
   return image_;
 }

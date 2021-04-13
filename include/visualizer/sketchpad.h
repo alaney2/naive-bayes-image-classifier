@@ -29,7 +29,7 @@ class Sketchpad {
    *                            pixels) from the brush that will be shaded
    */
   Sketchpad(const glm::vec2& top_left_corner, size_t num_pixels_per_side,
-            double sketchpad_size, double brush_radius = 1.15);
+            double sketchpad_size, double brush_radius = 0.85);
 
   /**
    * Displays the current state of the sketchpad in the Cinder application.
