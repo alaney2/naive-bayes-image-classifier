@@ -12,12 +12,12 @@ int main() {
   model.ParseFile(parse_path);
   
   // Trains model and saves data
-  /*
-  model.TrainModel();
-  std::string write = "../data/model.txt";
-  std::ofstream new_file(write);
-  new_file << model;
-  */
+  
+//  model.TrainModel();
+//  std::string write = "../data/model.txt";
+//  std::ofstream new_file(write);
+//  new_file << model;
+  
   
 // Loads data from model
   std::string file = "../data/model.txt";

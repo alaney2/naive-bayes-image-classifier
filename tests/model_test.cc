@@ -5,7 +5,6 @@
 #include <fstream>
 #include <iostream>
 
-using std::vector;
 
 namespace naivebayes {
 TEST_CASE("Model") {
@@ -55,21 +54,23 @@ TEST_CASE("Probabilities") {
   //  REQUIRE(model.GetImages()[0].GetClass() == 5);
 }
 
-TEST_CASE("Loading model") {
-  Model model(28);
-  std::string file =
-      "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model.txt";
-  std::ifstream load(file);
-  load >> model;
-  REQUIRE(model.GetPriorProbability(0) == 0.0958084);
-  REQUIRE(model.GetFeatureProbability(0, 0, 0, 0) == 0.997921);
-}
-
-TEST_CASE("Saving model") {
-  Model model(28);
-  std::string write = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model.txt";
-  std::ofstream new_file(write);
-  new_file << model;
+TEST_CASE("Operator Overloading") {
+  SECTION("Loading model") {
+    Model model(28);
+    std::string file =
+        "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model.txt";
+    std::ifstream load(file);
+    load >> model;
+    REQUIRE(model.GetPriorProbability(0) == 0.0958084);
+    REQUIRE(model.GetFeatureProbability(0, 0, 0, 0) == 0.997921);
+  }
+  
+  SECTION("Saving model") {
+    Model model(28);
+    std::string write = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model.txt";
+    std::ofstream new_file(write);
+    new_file << model;
+  }
 }
 
 }
