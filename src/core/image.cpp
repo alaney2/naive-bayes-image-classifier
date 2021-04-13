@@ -1,9 +1,10 @@
 #include "core/image.h"
-#include "core/model.h"
+
+using std::vector;
 
 namespace naivebayes {
 
-Image::Image() {}
+Image::Image() = default;
 
 Image::Image(size_t image_size) {
   kImageSize_ = image_size;
@@ -11,7 +12,7 @@ Image::Image(size_t image_size) {
 }
 
 std::istream& operator>>(std::istream &is, Image &image) {
-  const std::vector<char> shaded_chars = { '+', '#'};
+  const vector<char> shaded_chars = { '+', '#'};
   
   std::string digit;
   getline(is, digit);
@@ -20,7 +21,7 @@ std::istream& operator>>(std::istream &is, Image &image) {
   std::string line;
   for (size_t row = 0; row < image.kImageSize_; ++row) {
     getline(is, line);
-    image.shades_.resize(image.kImageSize_, std::vector<size_t>(image.kImageSize_, 0));
+    image.shades_.resize(image.kImageSize_, vector<size_t>(image.kImageSize_, 0));
     for (size_t col = 0; col < image.kImageSize_; ++col) {
       if (std::count(shaded_chars.begin(), shaded_chars.end(), line[col])) {
         image.shades_[row][col] = 1;
@@ -52,8 +53,13 @@ void Image::SetImageSize(size_t image_size) {
 void Image::SetShade(size_t row, size_t col, size_t shade) {
   shades_[row][col] = shade;
 }
+
 void Image::ResizeShadeVector(size_t vector_size) {
-  shades_.resize(vector_size, std::vector<size_t>(vector_size, 0));
+  shades_.resize(vector_size, vector<size_t>(vector_size, 0));
+}
+
+void Image::SetShadeVector(vector<vector<size_t>> &shades) {
+  shades_ = shades;
 }
 
 }

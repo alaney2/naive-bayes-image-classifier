@@ -23,7 +23,6 @@ int main() {
   std::string file = "../data/model.txt";
   std::ifstream load_file(file);
   load_file >> model;
-//  std::cout << model.GetFeatureProbability(0,0,0,0) << std::endl;
 
   // Calculates model accuracy
   naivebayes::Classifier classifier(model);

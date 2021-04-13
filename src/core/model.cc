@@ -124,7 +124,7 @@ const std::vector<Image> Model::GetImages() {
   return images_;
 }
 
-const double Model::GetFeatureCount(size_t row, size_t col, size_t shade, size_t num) {
+const size_t Model::GetFeatureCount(size_t row, size_t col, size_t shade, size_t num) {
   return feature_count_[row][col][shade][num];
 }
 

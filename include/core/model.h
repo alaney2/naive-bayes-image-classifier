@@ -13,8 +13,20 @@ class Model {
  public:
   Model(size_t image_size);
   
+  /**
+   * 
+   * @param os 
+   * @param model 
+   * @return 
+   */
   friend std::ostream& operator<<(std::ostream& os, Model& model);
   
+  /**
+   * Reads a file and stores feature probabilities and prior probabilities
+   * @param is 
+   * @param model 
+   * @return 
+   */
   friend std::istream& operator>>(std::istream& is, Model& model);
   
   /**
@@ -42,22 +54,8 @@ class Model {
    * Calculates feature probabilities
    */
   void CalculateFeatureProbabilities();
-  
-  /**
-   * Outputs feature probabilities and prior probabilities to a file 
-   * Format is [pixel][pixel][shaded][number] with breaks every 28 pixels
-   * The prior probability comes before each block
-   * @param file_name name of file to create and write to
-   */
-  void WriteDataToFile(std::string &file_name);
-  
-  /**
-   * Reads a file and stores feature probabilities and prior probabilities
-   * @param file_name to take in data from
-   */
-  void LoadModelData(std::string &file_name);
-  
-  const double GetFeatureCount(size_t row, size_t col, size_t shade, size_t num);
+
+  const size_t GetFeatureCount(size_t row, size_t col, size_t shade, size_t num);
   const double GetPriorProbability(size_t num);
   const double GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num);
 

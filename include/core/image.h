@@ -31,6 +31,7 @@ class Image {
   size_t GetImageSize();
   void SetShade(size_t row, size_t col, size_t shade);
   void SetImageSize(size_t image_size);
+  void SetShadeVector(std::vector<std::vector<size_t>> &shades);
   
  private:
   size_t kImageSize_;

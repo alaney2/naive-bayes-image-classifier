@@ -36,11 +36,11 @@ void NaiveBayesApp::mouseDrag(ci::app::MouseEvent event) {
 void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_RETURN: {
+      
       Model model(kImageDimension);
       std::string file = "../../../../../../data/model.txt";
       std::ifstream load_file(file);
       load_file >> model;
-      
       Classifier classifier(model);
       current_prediction_ = classifier.GetBestClass(sketchpad_.GetImage());
       break;

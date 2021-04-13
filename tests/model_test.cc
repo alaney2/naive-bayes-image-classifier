@@ -1,11 +1,17 @@
 #include <core/model.h>
+#include <core/classifier.h>
 
 #include <catch2/catch.hpp>
+#include <fstream>
 #include <iostream>
 
+using std::vector;
+
+namespace naivebayes {
 TEST_CASE("Model") {
   naivebayes::Model model(28);
-  std::string file = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/sample.txt";
+  std::string file =
+      "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/sample.txt";
   model.ParseFile(file);
   model.TrainModel();
   SECTION("Correct class") {
@@ -13,49 +19,57 @@ TEST_CASE("Model") {
     REQUIRE(model.GetImages()[1].GetClass() == 0);
     REQUIRE(model.GetImages()[3].GetClass() == 4);
   }
-  
-  SECTION("Shaded vs unshaded") {
-    REQUIRE(model.GetImages()[0].GetShade(0,0) == 0);
-    REQUIRE(model.GetImages()[0].GetShade(27,27) == 0);
-    REQUIRE(model.GetImages()[0].GetShade(11,24) == 0);
 
-    REQUIRE(model.GetImages()[0].GetShade(5,17) == 1);
-    REQUIRE(model.GetImages()[0].GetShade(5,18) == 1);
-    REQUIRE(model.GetImages()[0].GetShade(6,23) == 1);
+  SECTION("Shaded vs unshaded") {
+    REQUIRE(model.GetImages()[0].GetShade(0, 0) == 0);
+    REQUIRE(model.GetImages()[0].GetShade(27, 27) == 0);
+    REQUIRE(model.GetImages()[0].GetShade(11, 24) == 0);
+
+    REQUIRE(model.GetImages()[0].GetShade(5, 17) == 1);
+    REQUIRE(model.GetImages()[0].GetShade(5, 18) == 1);
+    REQUIRE(model.GetImages()[0].GetShade(6, 23) == 1);
   }
-  
+
   SECTION("Feature count") {
-    REQUIRE(model.GetFeatureCount(0,0,0,0) == 1);
-    REQUIRE(model.GetFeatureCount(15,15,0,3) == 0);
-    REQUIRE(model.GetFeatureCount(3,10,0,4) == 2);
-    
-    REQUIRE(model.GetFeatureCount(15,10,1,4) == 2);
-    REQUIRE(model.GetFeatureCount(17,11,1,4) == 0);
-    REQUIRE(model.GetFeatureCount(23,19,1,4) == 1);
+    REQUIRE(model.GetFeatureCount(0, 0, 0, 0) == 1);
+    REQUIRE(model.GetFeatureCount(15, 15, 0, 3) == 0);
+    REQUIRE(model.GetFeatureCount(3, 10, 0, 4) == 2);
+
+    REQUIRE(model.GetFeatureCount(15, 10, 1, 4) == 2);
+    REQUIRE(model.GetFeatureCount(17, 11, 1, 4) == 0);
+    REQUIRE(model.GetFeatureCount(23, 19, 1, 4) == 1);
   }
-  
+
   SECTION("Images") {
     REQUIRE(model.GetImages().size() == 4);
   }
-  std::string path = "model.txt";
-  model.WriteDataToFile(path);
 }
 
 TEST_CASE("Probabilities") {
-  naivebayes::Model model;
-  std::string file = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/sample.txt";
-  model.ParseFile(file);
-  model.TrainModel();
-//  REQUIRE(model.GetImages()[0].GetShades()[0][0] == 0);
-//  REQUIRE(model.GetImages()[0].GetShades()[7][12] == 1);
-//  REQUIRE(model.GetFeatureCount()[0][0][0][0] == 1);
-//  REQUIRE(model.GetImages()[0].GetClass() == 5);
+  Model model(3);
+  Image image(3);
+  
+  //  REQUIRE(model.GetImages()[0].GetShades()[0][0] == 0);
+  //  REQUIRE(model.GetImages()[0].GetShades()[7][12] == 1);
+  //  REQUIRE(model.GetFeatureCount()[0][0][0][0] == 1);
+  //  REQUIRE(model.GetImages()[0].GetClass() == 5);
 }
 
 TEST_CASE("Loading model") {
-  naivebayes::Model model;
-  std::string file = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model.txt";
-  model.LoadModelData(file);
-  REQUIRE(model.GetPriorProbability(0) == -2.34541);
-  REQUIRE(model.GetFeatureProbability(0,0,0,0) == -0.00208117);
+  Model model(28);
+  std::string file =
+      "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model.txt";
+  std::ifstream load(file);
+  load >> model;
+  REQUIRE(model.GetPriorProbability(0) == 0.0958084);
+  REQUIRE(model.GetFeatureProbability(0, 0, 0, 0) == 0.997921);
+}
+
+TEST_CASE("Saving model") {
+  Model model(28);
+  std::string write = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model.txt";
+  std::ofstream new_file(write);
+  new_file << model;
+}
+
 }
