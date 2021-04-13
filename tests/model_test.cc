@@ -111,26 +111,51 @@ TEST_CASE("Model") {
 }
 
 TEST_CASE("Operator Overloading") {
-  SECTION("Saving model") {
+  SECTION("Saving 5x5 model") {
     Model model(5);
     std::string parse_path = "../../../../../../tests/testing_data.txt";
     model.ParseFile(parse_path);
     model.TrainModel();
-    
-    std::string write = "../../../../../../tests/testing_model.txt";
-    std::ofstream new_file(write);
+
+    std::string write_path = "../../../../../../tests/testing_model.txt";
+    std::ofstream new_file(write_path);
     new_file << model;
+    REQUIRE(new_file.is_open());
   }
   
-  SECTION("Loading model") {
+  SECTION("Saving 28x28 model") {
+    Model model(28);
+    std::string parse_path = "../../../../../../data/training.txt";
+    model.ParseFile(parse_path);
+    model.TrainModel();
+
+    std::string write = "../../../../../../data/model.txt";
+    std::ofstream new_file(write);
+    new_file << model;
+    REQUIRE(new_file.is_open());
+  }
+  
+  SECTION("Loading 5x5 model") {
     Model model(5);
-    std::string file = "../../../../../../tests/testing_model.txt";
-    std::ifstream load(file);
+    std::string load_path = "../../../../../../tests/testing_model.txt";
+    std::ifstream load(load_path);
     load >> model;
     REQUIRE(model.GetPriorProbability(0) == 0.1);
+    REQUIRE(model.GetPriorProbability(9) == 0.1);
     REQUIRE(model.GetFeatureProbability(0, 0, 0, 0) == Approx(0.666667));
+    REQUIRE(model.GetFeatureProbability(4, 4, 1, 9) == Approx(0.333333));
+  }
+
+  SECTION("Loading 28x28 model") {
+    Model model(28);
+    std::string load_path = "../../../../../../data/model.txt";
+    std::ifstream load(load_path);
+    load >> model;
+    REQUIRE(model.GetPriorProbability(0) == 0.0958084);
+    REQUIRE(model.GetPriorProbability(9) == 0.099002);
+    REQUIRE(model.GetFeatureProbability(0, 0, 0, 0) == 0.997921);
+    REQUIRE(model.GetFeatureProbability(27, 27, 1, 9) == 0.00201207);
   }
   
 }
-
 }
