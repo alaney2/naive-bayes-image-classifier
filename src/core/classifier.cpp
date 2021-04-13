@@ -19,7 +19,7 @@ double Classifier::CalculateAccuracy(const std::vector<Image>& images) {
   return static_cast<double>(count) / images.size();
 }
 
-size_t Classifier::CalculateLikelihoodScores(Image& image) {
+size_t Classifier::CalculateLikelihoodScores(Image image) {
   scores_.resize(kNumDigits, 0);
   
   for (size_t num = 0; num < kNumDigits; ++num) {

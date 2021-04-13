@@ -1,3 +1,4 @@
+#include <core/classifier.h>
 #include <visualizer/naive_bayes_app.h>
 
 namespace naivebayes {
@@ -7,7 +8,7 @@ namespace visualizer {
 NaiveBayesApp::NaiveBayesApp()
     : sketchpad_(glm::vec2(kMargin, kMargin), kImageDimension,
                  kWindowSize - 2 * kMargin) {
-  ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
+  ci::app::setWindowSize(static_cast<int>(kWindowSize), static_cast<int>(kWindowSize));
 }
 
 void NaiveBayesApp::draw() {
@@ -36,8 +37,12 @@ void NaiveBayesApp::mouseDrag(ci::app::MouseEvent event) {
 void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_RETURN:
-      // ask your classifier to classify the image that's currently drawn on the
-      // sketchpad and update current_prediction_
+//      naivebayes::Model model(kImageDimension);
+//      naivebayes::Classifier classifier(model);
+//      std::string file = "../data/model.txt";
+//      std::ifstream load_file(file);
+//      load_file >> model;
+//      current_prediction_ = classifier.CalculateLikelihoodScores(sketchpad_.GetImage());
       break;
 
     case ci::app::KeyEvent::KEY_DELETE:

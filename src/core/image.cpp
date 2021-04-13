@@ -3,8 +3,11 @@
 
 namespace naivebayes {
 
+Image::Image() {}
+
 Image::Image(size_t image_size) {
   kImageSize_ = image_size;
+  shades_.resize(image_size, std::vector<size_t>(image_size, 0));
 }
 
 std::istream& operator>>(std::istream &is, Image &image) {
@@ -30,11 +33,11 @@ std::istream& operator>>(std::istream &is, Image &image) {
   return is;
 }
 
-size_t Image::GetClass() const {
+const size_t Image::GetClass() const {
   return class_;
 }
 
-size_t Image::GetShade(size_t row, size_t col) {
+const size_t Image::GetShade(size_t row, size_t col) const {
   return shades_[row][col];
 }
 
@@ -42,8 +45,15 @@ size_t Image::GetImageSize() {
   return kImageSize_;
 }
 
+void Image::SetImageSize(size_t image_size) {
+  kImageSize_ = image_size;
+}
+
 void Image::SetShade(size_t row, size_t col, size_t shade) {
   shades_[row][col] = shade;
+}
+void Image::ResizeShadeVector(size_t vector_size) {
+  shades_.resize(vector_size, std::vector<size_t>(vector_size, 0));
 }
 
 }

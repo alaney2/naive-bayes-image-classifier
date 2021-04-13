@@ -8,7 +8,7 @@
 int main() {
   // Parses images
   naivebayes::Model model(28);
-  std::string parse_path = "../data/training.txt";
+  std::string parse_path = "../data/testing.txt";
   model.ParseFile(parse_path);
   
   // Trains model and saves data
