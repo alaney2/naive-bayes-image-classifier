@@ -9,8 +9,7 @@
 namespace naivebayes {
 TEST_CASE("Model") {
   naivebayes::Model model(5);
-  std::string file =
-      "../../../../../../tests/testing_data.txt";
+  std::string file = "../../../../../../tests/testing_data.txt";
   model.ParseFile(file);
   model.TrainModel();
   REQUIRE(model.GetImages().size() == 10);
@@ -19,7 +18,11 @@ TEST_CASE("Model") {
     REQUIRE(model.GetImages()[0].GetClass() == 0);
     REQUIRE(model.GetImages()[1].GetClass() == 1);
     REQUIRE(model.GetImages()[2].GetClass() == 2);
+    REQUIRE(model.GetImages()[3].GetClass() == 3);
+    REQUIRE(model.GetImages()[4].GetClass() == 4);
     REQUIRE(model.GetImages()[5].GetClass() == 5);
+    REQUIRE(model.GetImages()[6].GetClass() == 6);
+    REQUIRE(model.GetImages()[7].GetClass() == 7);
     REQUIRE(model.GetImages()[8].GetClass() == 8);
     REQUIRE(model.GetImages()[9].GetClass() == 9);
   }
@@ -108,22 +111,26 @@ TEST_CASE("Model") {
 }
 
 TEST_CASE("Operator Overloading") {
-  SECTION("Loading model") {
-    Model model(5);
-    std::string file =
-        "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/tests/testing_data.txt";
-    std::ifstream load(file);
-    load >> model;
-    REQUIRE(model.GetPriorProbability(0) == 0.0958084);
-    REQUIRE(model.GetFeatureProbability(0, 0, 0, 0) == 0.997921);
-  }
-  
   SECTION("Saving model") {
     Model model(5);
-    std::string write = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/tests/testing_model.txt";
+    std::string parse_path = "../../../../../../tests/testing_data.txt";
+    model.ParseFile(parse_path);
+    model.TrainModel();
+    
+    std::string write = "../../../../../../tests/testing_model.txt";
     std::ofstream new_file(write);
     new_file << model;
   }
+  
+  SECTION("Loading model") {
+    Model model(5);
+    std::string file = "../../../../../../tests/testing_model.txt";
+    std::ifstream load(file);
+    load >> model;
+    REQUIRE(model.GetPriorProbability(0) == 0.1);
+    REQUIRE(model.GetFeatureProbability(0, 0, 0, 0) == Approx(0.666667));
+  }
+  
 }
 
 }
