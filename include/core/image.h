@@ -20,6 +20,10 @@ class Image {
    */
   friend std::istream& operator>>(std::istream& is, Image& image);
   
+  /**
+   * 
+   * @param vector_size 
+   */
   void ResizeShadeVector(size_t vector_size);
   
   const size_t GetClass() const;

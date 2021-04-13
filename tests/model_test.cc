@@ -3,12 +3,8 @@
 #include <catch2/catch.hpp>
 #include <iostream>
 
-TEST_CASE("Check that 126 is the best class") {
-  REQUIRE(naivebayes::Model().GetBestClass() == "CS 126");
-}
-
 TEST_CASE("Model") {
-  naivebayes::Model model;
+  naivebayes::Model model(28);
   std::string file = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/sample.txt";
   model.ParseFile(file);
   model.TrainModel();

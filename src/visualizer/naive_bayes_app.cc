@@ -1,4 +1,3 @@
-#include <core/classifier.h>
 #include <visualizer/naive_bayes_app.h>
 
 namespace naivebayes {
@@ -37,14 +36,13 @@ void NaiveBayesApp::mouseDrag(ci::app::MouseEvent event) {
 void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_RETURN: {
-      naivebayes::Model model(kImageDimension);
-      std::string file = "/Users/alaney/CLionProjects/Cinder/my-projects/naive-bayes-alaney2/data/model.txt";
+      Model model(kImageDimension);
+      std::string file = "../../../../../../data/model.txt";
       std::ifstream load_file(file);
       load_file >> model;
       
-      naivebayes::Classifier classifier(model);
-      current_prediction_ =
-          classifier.CalculateLikelihoodScores(sketchpad_.GetImage());
+      Classifier classifier(model);
+      current_prediction_ = classifier.GetBestClass(sketchpad_.GetImage());
       break;
     }
 
@@ -52,7 +50,6 @@ void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
       sketchpad_.Clear();
       current_prediction_ = -1;
       break;
-      
   }
 }
 

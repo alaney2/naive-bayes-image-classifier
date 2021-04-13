@@ -1,16 +1,14 @@
 #include "core/classifier.h"
 
-#include <core/model.h>
-
 namespace naivebayes {
 
-Classifier::Classifier(Model& model) : model_(model){ }
+Classifier::Classifier(Model& model) : model_(model) {}
 
 double Classifier::CalculateAccuracy(const std::vector<Image>& images) {
   size_t count = 0;
-  for (size_t i = 0; i < images.size(); ++i) {
-    size_t predicted = CalculateLikelihoodScores(const_cast<Image&>(images[i]));
-    size_t actual = images[i].GetClass();
+  for (const auto & image : images) {
+    size_t predicted = GetBestClass(const_cast<Image&>(image));
+    size_t actual = image.GetClass();
     if (actual == predicted) {
       ++count;
     }
@@ -19,7 +17,7 @@ double Classifier::CalculateAccuracy(const std::vector<Image>& images) {
   return static_cast<double>(count) / images.size();
 }
 
-int Classifier::CalculateLikelihoodScores(Image image) {
+void Classifier::CalculateLikelihoodScores(Image &image) {
   scores_.resize(kNumDigits, 0);
   
   for (size_t num = 0; num < kNumDigits; ++num) {
@@ -32,12 +30,10 @@ int Classifier::CalculateLikelihoodScores(Image image) {
     }
     scores_[num] = likelihood;
   }
-
-  int best_class = GetBestClass();
-  return best_class;
 }
 
-int Classifier::GetBestClass() {
+int Classifier::GetBestClass(Image image) {
+  CalculateLikelihoodScores(image);
   int best_class = 0;
   for (int num = 1; num < 10; ++num) {
     if (scores_[num] > scores_[best_class]) {

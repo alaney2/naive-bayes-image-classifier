@@ -15,10 +15,10 @@ class Classifier {
 
   double CalculateAccuracy(const std::vector<Image> &images);
 
-  int CalculateLikelihoodScores(Image image);
+  void CalculateLikelihoodScores(Image &image);
 
-  int GetBestClass();
-  
+  int GetBestClass(Image image);
+
  private:
   Model model_;
   std::vector<double> scores_;

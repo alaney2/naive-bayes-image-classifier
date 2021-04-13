@@ -52,6 +52,7 @@ class Sketchpad {
   void Clear();
 
   Image GetImage();
+  
  private:
   Image image_;
   
