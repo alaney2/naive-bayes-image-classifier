@@ -75,4 +75,16 @@ TEST_CASE("Best class") {
     REQUIRE(classifier.GetBestClass(image) == 9);
   }
 }
+
+TEST_CASE("Accuracy") {
+  Model model(5);
+  std::string file = "../../../../../../tests/testing_data.txt";
+  model.ParseFile(file);
+
+  std::string model_file = "../../../../../../tests/testing_model.txt";
+  std::ifstream load_file(model_file);
+  load_file >> model;
+  Classifier classifier(model);
+  REQUIRE(classifier.CalculateAccuracy(model.GetImages()) == 1);
+}
 }
