@@ -18,6 +18,8 @@ class Classifier {
   void CalculateLikelihoodScores(Image &image);
 
   int GetBestClass(Image image);
+  
+  double GetScore(size_t num);
 
  private:
   Model model_;

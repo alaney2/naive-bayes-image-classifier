@@ -43,4 +43,7 @@ int Classifier::GetBestClass(Image image) {
   
   return best_class;
 }
+double Classifier::GetScore(size_t num) {
+  return scores_[num];
+}
 }
