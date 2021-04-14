@@ -21,8 +21,8 @@ class Image {
   friend std::istream& operator>>(std::istream& is, Image& image);
   
   /**
-   * 
-   * @param vector_size 
+   * Resizes vector of shades
+   * @param vector_size new size of vector
    */
   void ResizeShadeVector(size_t vector_size);
   

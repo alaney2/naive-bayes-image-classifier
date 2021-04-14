@@ -4,7 +4,6 @@
 #include <fstream>
 #include <iostream>
 
-// TODO: You may want to change main's signature to take in argc and argv
 int main() {
   // Parses images
   naivebayes::Model model(28);

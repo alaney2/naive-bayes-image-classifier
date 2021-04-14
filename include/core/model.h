@@ -14,18 +14,18 @@ class Model {
   Model(size_t image_size);
   
   /**
-   * 
-   * @param os 
-   * @param model 
-   * @return 
+   * Loads in feature probabilities and prior probabilities
+   * @param os output stream
+   * @param model to load
+   * @return output stream
    */
   friend std::ostream& operator<<(std::ostream& os, Model& model);
   
   /**
-   * Reads a file and stores feature probabilities and prior probabilities
-   * @param is 
-   * @param model 
-   * @return 
+   * Reads feature probabilities and prior probabilities
+   * @param is input stream
+   * @param model to read
+   * @return input stream
    */
   friend std::istream& operator>>(std::istream& is, Model& model);
   
@@ -41,12 +41,12 @@ class Model {
   void CalculatePriorProbabilities();
 
   /**
-   * Calculates everything needed for Bayes' Theorem
+   * Calculations needed for Bayes' Theorem
    */
   void TrainModel();
 
   /**
-   * 
+   * Gets a count of the number of images belonging to a class where a pixel is un/shaded
    */
   void CountFeatures();
 
@@ -65,7 +65,6 @@ class Model {
   size_t kImageSize_;
   size_t image_count_ = 0;
   const double kSmoothingFactor_ = 1.0;
-//  static size_t kImageSize_;
   
   std::vector<Image> images_;
   std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_;
