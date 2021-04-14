@@ -52,10 +52,10 @@ class Sketchpad {
   void Clear();
 
   Image GetImage();
-  
+
  private:
   Image image_;
-  
+
   glm::vec2 top_left_corner_;
 
   size_t num_pixels_per_side_;

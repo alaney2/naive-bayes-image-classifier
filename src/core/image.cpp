@@ -11,13 +11,13 @@ Image::Image(size_t image_size) {
   shades_.resize(image_size, std::vector<size_t>(image_size, 0));
 }
 
-std::istream& operator>>(std::istream &is, Image &image) {
-  const vector<char> shaded_chars = { '+', '#'};
-  
+std::istream &operator>>(std::istream &is, Image &image) {
+  const vector<char> shaded_chars = {'+', '#'};
+
   std::string digit;
   getline(is, digit);
   image.class_ = std::stoi(digit);
-  
+
   std::string line;
   for (size_t row = 0; row < image.kImageSize_; ++row) {
     getline(is, line);
@@ -61,4 +61,4 @@ void Image::SetShadeVector(vector<vector<size_t>> &shades) {
   shades_ = shades;
 }
 
-}
+}  // namespace naivebayes

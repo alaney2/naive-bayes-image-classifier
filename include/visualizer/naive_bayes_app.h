@@ -3,8 +3,8 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
-#include "sketchpad.h"
 #include "core/classifier.h"
+#include "sketchpad.h"
 
 namespace naivebayes {
 
@@ -22,7 +22,7 @@ class NaiveBayesApp : public ci::app::App {
   void mouseDown(ci::app::MouseEvent event) override;
   void mouseDrag(ci::app::MouseEvent event) override;
   void keyDown(ci::app::KeyEvent event) override;
-  
+
   const double kWindowSize = 800;
   const double kMargin = 100;
   const size_t kImageDimension = 28;

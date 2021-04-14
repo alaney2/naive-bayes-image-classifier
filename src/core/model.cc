@@ -15,25 +15,27 @@ Model::Model(size_t image_size) {
   kImageSize_ = image_size;
   prior_count_.resize(kNumClasses, 0);
   prior_prob_.resize(kNumClasses, 0);
-  
+
   feature_count_ = vector<vector<vector<vector<size_t>>>>(
-      kImageSize_, vector<vector<vector<size_t>>>(
-          kImageSize_, vector<vector<size_t>>(
-              kNumShades, vector<size_t>(kNumClasses))));
-  
+      kImageSize_,
+      vector<vector<vector<size_t>>>(
+          kImageSize_,
+          vector<vector<size_t>>(kNumShades, vector<size_t>(kNumClasses))));
+
   feature_prob_ = vector<vector<vector<vector<double>>>>(
-      kImageSize_, vector<vector<vector<double>>>(
-          kImageSize_, vector<vector<double>>(
-              kNumShades, vector<double>(kNumClasses))));
+      kImageSize_,
+      vector<vector<vector<double>>>(
+          kImageSize_,
+          vector<vector<double>>(kNumShades, vector<double>(kNumClasses))));
 }
 
 void Model::ParseFile(std::string &file_path) {
   std::ifstream input(file_path);
-  
+
   if (!input) {
     return;
   }
-  
+
   while (!input.eof()) {
     Image image(kImageSize_);
     input >> image;
@@ -41,14 +43,15 @@ void Model::ParseFile(std::string &file_path) {
     images_.push_back(image);
     image_count_ += 1;
   }
-  
+
   input.close();
 }
 
 void Model::CalculatePriorProbabilities() {
   for (size_t num = 0; num < prior_prob_.size(); ++num) {
-    prior_prob_[num] = (kSmoothingFactor_ + static_cast<double>(prior_count_[num])) /
-            (kNumClasses * kSmoothingFactor_ + static_cast<double>(image_count_));
+    prior_prob_[num] =
+        (kSmoothingFactor_ + static_cast<double>(prior_count_[num])) /
+        (kNumClasses * kSmoothingFactor_ + static_cast<double>(image_count_));
   }
 }
 
@@ -75,8 +78,10 @@ void Model::CalculateFeatureProbabilities() {
       for (size_t shade = 0; shade < kNumShades; ++shade) {
         for (size_t num = 0; num < kNumClasses; ++num) {
           feature_prob_[row][col][shade][num] =
-              (kSmoothingFactor_ + static_cast<double>(feature_count_[row][col][shade][num])) /
-                  (kNumShades * kSmoothingFactor_ + static_cast<double>(prior_count_[num]));
+              (kSmoothingFactor_ +
+               static_cast<double>(feature_count_[row][col][shade][num])) /
+              (kNumShades * kSmoothingFactor_ +
+               static_cast<double>(prior_count_[num]));
         }
       }
     }
@@ -95,13 +100,13 @@ std::ostream &operator<<(std::ostream &os, Model &model) {
       }
     }
   }
-  
+
   return os;
 }
 
 std::istream &operator>>(std::istream &is, Model &model) {
   std::string line;
-  
+
   for (size_t num = 0; num < kNumClasses; ++num) {
     getline(is, line);
     model.prior_prob_[num] = std::stod(line);
@@ -118,7 +123,7 @@ std::istream &operator>>(std::istream &is, Model &model) {
       }
     }
   }
-  
+
   return is;
 }
 
@@ -126,11 +131,13 @@ std::vector<Image> Model::GetImages() const {
   return images_;
 }
 
-size_t Model::GetFeatureCount(size_t row, size_t col, size_t shade, size_t num) const {
+size_t Model::GetFeatureCount(size_t row, size_t col, size_t shade,
+                              size_t num) const {
   return feature_count_[row][col][shade][num];
 }
 
-double Model::GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num) const {
+double Model::GetFeatureProbability(size_t row, size_t col, size_t shade,
+                                    size_t num) const {
   return feature_prob_[row][col][shade][num];
 }
 

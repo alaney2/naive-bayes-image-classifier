@@ -1,10 +1,9 @@
-#include <core/model.h>
 #include <core/classifier.h>
+#include <core/model.h>
 
 #include <catch2/catch.hpp>
 #include <fstream>
 #include <iostream>
-
 
 namespace naivebayes {
 TEST_CASE("Model") {
@@ -84,29 +83,29 @@ TEST_CASE("Model") {
   }
 
   SECTION("Shaded feature probabilities") {
-    REQUIRE(model.GetFeatureProbability(0,0,1,0) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(3,2,1,1) == Approx(0.6666666667));
-    REQUIRE(model.GetFeatureProbability(4,3,1,2) == Approx(0.6666666667));
-    REQUIRE(model.GetFeatureProbability(1,0,1,3) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(0,2,1,4) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(4,0,1,5) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(3,3,1,6) == Approx(0.6666666667));
-    REQUIRE(model.GetFeatureProbability(1,4,1,7) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(2,1,1,8) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(2,0,1,9) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(0, 0, 1, 0) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(3, 2, 1, 1) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(4, 3, 1, 2) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(1, 0, 1, 3) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(0, 2, 1, 4) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(4, 0, 1, 5) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(3, 3, 1, 6) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(1, 4, 1, 7) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(2, 1, 1, 8) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(2, 0, 1, 9) == Approx(0.3333333333));
   }
 
   SECTION("Unshaded feature probabilities") {
-    REQUIRE(model.GetFeatureProbability(0,0,0,0) == Approx(0.6666666667));
-    REQUIRE(model.GetFeatureProbability(3,2,0,1) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(0,4,0,2) == Approx(0.6666666667));
-    REQUIRE(model.GetFeatureProbability(4,3,0,3) == Approx(0.6666666667));
-    REQUIRE(model.GetFeatureProbability(2,1,0,4) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(2,2,0,5) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(4,4,0,6) == Approx(0.6666666667));
-    REQUIRE(model.GetFeatureProbability(1,3,0,7) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(0,3,0,8) == Approx(0.3333333333));
-    REQUIRE(model.GetFeatureProbability(3,0,0,9) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(0, 0, 0, 0) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(3, 2, 0, 1) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(0, 4, 0, 2) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(4, 3, 0, 3) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(2, 1, 0, 4) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(2, 2, 0, 5) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(4, 4, 0, 6) == Approx(0.6666666667));
+    REQUIRE(model.GetFeatureProbability(1, 3, 0, 7) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(0, 3, 0, 8) == Approx(0.3333333333));
+    REQUIRE(model.GetFeatureProbability(3, 0, 0, 9) == Approx(0.6666666667));
   }
 }
 
@@ -122,7 +121,7 @@ TEST_CASE("Operator Overloading") {
     new_file << model;
     REQUIRE(new_file.is_open());
   }
-  
+
   SECTION("Saving 28x28 model") {
     Model model(28);
     std::string parse_path = "../../../../../../data/training.txt";
@@ -134,7 +133,7 @@ TEST_CASE("Operator Overloading") {
     new_file << model;
     REQUIRE(new_file.is_open());
   }
-  
+
   SECTION("Loading 5x5 model") {
     Model model(5);
     std::string load_path = "../../../../../../tests/testing_model.txt";
@@ -168,11 +167,11 @@ TEST_CASE("Classifier") {
   Image image(5);
 
   SECTION("Likelihood scores for 0") {
-    std::vector<std::vector<size_t>> shades = {{0,0,0,0,0},
-                                               {0,1,1,1,0},
-                                               {0,1,0,1,0},
-                                               {0,1,1,1,0},
-                                               {0,0,0,0,0}};
+    std::vector<std::vector<size_t>> shades = {{0, 0, 0, 0, 0},
+                                               {0, 1, 1, 1, 0},
+                                               {0, 1, 0, 1, 0},
+                                               {0, 1, 1, 1, 0},
+                                               {0, 0, 0, 0, 0}};
     image.SetShadeVector(shades);
     classifier.CalculateLikelihoodScores(image);
     REQUIRE(classifier.GetScore(0) == Approx(-12.4392002957));
@@ -182,11 +181,11 @@ TEST_CASE("Classifier") {
   }
 
   SECTION("Likelihood scores for 0") {
-    std::vector<std::vector<size_t>> shades = {{0,1,1,1,0},
-                                               {0,1,0,1,0},
-                                               {0,1,1,1,0},
-                                               {0,0,0,1,0},
-                                               {0,0,0,1,0}};
+    std::vector<std::vector<size_t>> shades = {{0, 1, 1, 1, 0},
+                                               {0, 1, 0, 1, 0},
+                                               {0, 1, 1, 1, 0},
+                                               {0, 0, 0, 1, 0},
+                                               {0, 0, 0, 1, 0}};
     image.SetShadeVector(shades);
     classifier.CalculateLikelihoodScores(image);
     REQUIRE(classifier.GetScore(9) == Approx(-12.4392002957));
@@ -194,27 +193,27 @@ TEST_CASE("Classifier") {
       REQUIRE(classifier.GetScore(i) < -12.4392002957);
     }
   }
-  
+
   SECTION("Best class for 0") {
-    std::vector<std::vector<size_t>> shades = {{0,0,0,0,0},
-                                               {0,1,1,1,0},
-                                               {0,1,0,1,0},
-                                               {0,1,1,1,0},
-                                               {0,0,0,0,0}};
+    std::vector<std::vector<size_t>> shades = {{0, 0, 0, 0, 0},
+                                               {0, 1, 1, 1, 0},
+                                               {0, 1, 0, 1, 0},
+                                               {0, 1, 1, 1, 0},
+                                               {0, 0, 0, 0, 0}};
     image.SetShadeVector(shades);
     classifier.CalculateLikelihoodScores(image);
     REQUIRE(classifier.GetBestClass(image) == 0);
   }
 
   SECTION("Best class for 9") {
-    std::vector<std::vector<size_t>> shades = {{0,1,1,1,0},
-                                               {0,1,0,1,0},
-                                               {0,1,1,1,0},
-                                               {0,0,0,1,0},
-                                               {0,0,0,1,0}};
+    std::vector<std::vector<size_t>> shades = {{0, 1, 1, 1, 0},
+                                               {0, 1, 0, 1, 0},
+                                               {0, 1, 1, 1, 0},
+                                               {0, 0, 0, 1, 0},
+                                               {0, 0, 0, 1, 0}};
     image.SetShadeVector(shades);
     classifier.CalculateLikelihoodScores(image);
     REQUIRE(classifier.GetBestClass(image) == 9);
   }
 }
-}
+}  // namespace naivebayes

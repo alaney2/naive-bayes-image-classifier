@@ -8,12 +8,13 @@
 
 namespace naivebayes {
 
+/**
+ * Tests the accuracy of a model.
+ */
 class Classifier {
-  
  public:
-  
   Classifier();
-  Classifier(Model& model);
+  Classifier(Model &model);
 
   /**
    * Checks the predicted class against the actual class for given images
@@ -23,7 +24,7 @@ class Classifier {
   double CalculateAccuracy(const std::vector<Image> &images);
 
   /**
-   * Calculates likelihood scores for classes 0-9 for an image 
+   * Calculates likelihood scores for classes 0-9 for an image
    * @param image to calculate scores for
    */
   void CalculateLikelihoodScores(Image &image);
@@ -34,9 +35,9 @@ class Classifier {
    * @return predicted class
    */
   int GetBestClass(Image image);
-  
+
   double GetScore(size_t num);
-  
+
   void SetModel(Model &model);
 
  private:
@@ -44,5 +45,4 @@ class Classifier {
   std::vector<double> likelihood_scores_;
 };
 
-}
-
+}  // namespace naivebayes

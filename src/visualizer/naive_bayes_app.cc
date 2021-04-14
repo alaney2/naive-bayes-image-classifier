@@ -7,7 +7,8 @@ namespace visualizer {
 NaiveBayesApp::NaiveBayesApp()
     : sketchpad_(glm::vec2(kMargin, kMargin), kImageDimension,
                  kWindowSize - 2 * kMargin) {
-  ci::app::setWindowSize(static_cast<int>(kWindowSize), static_cast<int>(kWindowSize));
+  ci::app::setWindowSize(static_cast<int>(kWindowSize),
+                         static_cast<int>(kWindowSize));
   Model model(kImageDimension);
   std::string file = "../../../../../../data/model.txt";
   std::ifstream load_file(file);
@@ -44,7 +45,7 @@ void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
       current_prediction_ = classifier_.GetBestClass(sketchpad_.GetImage());
       break;
     }
-      
+
     case ci::app::KeyEvent::KEY_DELETE:
       sketchpad_.Clear();
       current_prediction_ = -1;
