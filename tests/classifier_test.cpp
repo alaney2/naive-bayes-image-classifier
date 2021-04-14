@@ -77,14 +77,29 @@ TEST_CASE("Best class") {
 }
 
 TEST_CASE("Accuracy") {
-  Model model(5);
-  std::string file = "../../../../../../tests/testing_data.txt";
-  model.ParseFile(file);
+  SECTION("5x5 accuracy") {
+    Model model(5);
+    std::string file = "../../../../../../tests/testing_data.txt";
+    model.ParseFile(file);
 
-  std::string model_file = "../../../../../../tests/testing_model.txt";
-  std::ifstream load_file(model_file);
-  load_file >> model;
-  Classifier classifier(model);
-  REQUIRE(classifier.CalculateAccuracy(model.GetImages()) == 1);
+    std::string model_file = "../../../../../../tests/testing_model.txt";
+    std::ifstream load_file(model_file);
+    load_file >> model;
+    Classifier classifier(model);
+    REQUIRE(classifier.CalculateAccuracy(model.GetImages()) == 1);
+  }
+
+  SECTION("Actual accuracy") {
+    naivebayes::Model model(28);
+    std::string parse_path = "../../../../../../data/testing.txt";
+    model.ParseFile(parse_path);
+
+    std::string file = "../../../../../../data/model.txt";
+    std::ifstream load_file(file);
+    load_file >> model;
+
+    naivebayes::Classifier classifier(model);
+    REQUIRE(classifier.CalculateAccuracy(model.GetImages()) > 0.7);
+  }
 }
 }
