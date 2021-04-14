@@ -21,7 +21,6 @@ std::istream& operator>>(std::istream &is, Image &image) {
   std::string line;
   for (size_t row = 0; row < image.kImageSize_; ++row) {
     getline(is, line);
-    image.shades_.resize(image.kImageSize_, vector<size_t>(image.kImageSize_, 0));
     for (size_t col = 0; col < image.kImageSize_; ++col) {
       if (std::count(shaded_chars.begin(), shaded_chars.end(), line[col])) {
         image.shades_[row][col] = 1;

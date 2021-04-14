@@ -12,6 +12,7 @@ class Image {
  public:
   Image();
   Image(size_t image_size);
+  
   /**
    * Stores shaded pixels in a 2d vector, with 0 being unshaded and 1 being shaded
    * @param is input stream

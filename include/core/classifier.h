@@ -11,6 +11,8 @@ namespace naivebayes {
 class Classifier {
   
  public:
+  
+  Classifier();
   Classifier(Model& model);
 
   /**
@@ -34,10 +36,12 @@ class Classifier {
   int GetBestClass(Image image);
   
   double GetScore(size_t num);
+  
+  void SetModel(Model &model);
 
  private:
   Model model_;
-  std::vector<double> scores_;
+  std::vector<double> likelihood_scores_;
 };
 
 }

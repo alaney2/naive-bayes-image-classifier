@@ -30,6 +30,7 @@ class NaiveBayesApp : public ci::app::App {
  private:
   Sketchpad sketchpad_;
   int current_prediction_ = -1;
+  Classifier classifier_;
 };
 
 }  // namespace visualizer

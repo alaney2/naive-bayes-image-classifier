@@ -9,6 +9,8 @@ using std::vector;
 
 namespace naivebayes {
 
+Model::Model() = default;
+
 Model::Model(size_t image_size) {
   kImageSize_ = image_size;
   prior_count_.resize(kNumClasses, 0);

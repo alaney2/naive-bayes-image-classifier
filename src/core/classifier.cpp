@@ -2,6 +2,8 @@
 
 namespace naivebayes {
 
+Classifier::Classifier() = default;
+
 Classifier::Classifier(Model& model) : model_(model) {}
 
 double Classifier::CalculateAccuracy(const std::vector<Image>& images) {
@@ -18,7 +20,7 @@ double Classifier::CalculateAccuracy(const std::vector<Image>& images) {
 }
 
 void Classifier::CalculateLikelihoodScores(Image &image) {
-  scores_.resize(kNumClasses, 0);
+  likelihood_scores_.resize(kNumClasses, 0);
   
   for (size_t num = 0; num < kNumClasses; ++num) {
     double likelihood = log(model_.GetPriorProbability(num));
@@ -28,7 +30,7 @@ void Classifier::CalculateLikelihoodScores(Image &image) {
         likelihood += log(model_.GetFeatureProbability(row, col, shade, num));
       }
     }
-    scores_[num] = likelihood;
+    likelihood_scores_[num] = likelihood;
   }
 }
 
@@ -36,14 +38,20 @@ int Classifier::GetBestClass(Image image) {
   CalculateLikelihoodScores(image);
   int best_class = 0;
   for (int num = 1; num < kNumClasses; ++num) {
-    if (scores_[num] > scores_[best_class]) {
+    if (likelihood_scores_[num] > likelihood_scores_[best_class]) {
       best_class = num;
     }
   }
   
   return best_class;
 }
+
 double Classifier::GetScore(size_t num) {
-  return scores_[num];
+  return likelihood_scores_[num];
+
+}
+
+void Classifier::SetModel(Model& model) {
+  model_ = model;
 }
 }
