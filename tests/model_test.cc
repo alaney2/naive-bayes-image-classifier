@@ -120,6 +120,7 @@ TEST_CASE("Operator Overloading") {
     std::ofstream new_file(write_path);
     new_file << model;
     REQUIRE(new_file.is_open());
+    new_file.close();
   }
 
   SECTION("Saving 28x28 model") {
@@ -132,6 +133,7 @@ TEST_CASE("Operator Overloading") {
     std::ofstream new_file(write);
     new_file << model;
     REQUIRE(new_file.is_open());
+    new_file.close();
   }
 
   SECTION("Loading 5x5 model") {
