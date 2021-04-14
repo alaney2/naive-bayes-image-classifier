@@ -65,13 +65,13 @@ class Model {
   double GetPriorProbability(size_t num) const;
   double GetFeatureProbability(size_t row, size_t col, size_t shade,
                                size_t num) const;
-  std::vector<Image> GetImages() const;
+  const std::vector<Image> &GetImages() const;
 
  private:
   size_t kImageSize_;
   size_t image_count_ = 0;
   // Can't be a const or else copy assignment operator won't work
-  double kSmoothingFactor_ = 1.0;  
+  double kSmoothingFactor_ = 1.0;
 
   std::vector<Image> images_;
   std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_;

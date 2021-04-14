@@ -127,7 +127,7 @@ std::istream &operator>>(std::istream &is, Model &model) {
   return is;
 }
 
-std::vector<Image> Model::GetImages() const {
+const std::vector<Image> &Model::GetImages() const {
   return images_;
 }
 
