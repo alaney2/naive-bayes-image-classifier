@@ -122,19 +122,19 @@ std::istream &operator>>(std::istream &is, Model &model) {
   return is;
 }
 
-const std::vector<Image> Model::GetImages() {
+std::vector<Image> Model::GetImages() const {
   return images_;
 }
 
-const size_t Model::GetFeatureCount(size_t row, size_t col, size_t shade, size_t num) {
+size_t Model::GetFeatureCount(size_t row, size_t col, size_t shade, size_t num) const {
   return feature_count_[row][col][shade][num];
 }
 
-const double Model::GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num) {
+double Model::GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num) const {
   return feature_prob_[row][col][shade][num];
 }
 
-const double Model::GetPriorProbability(size_t num) {
+double Model::GetPriorProbability(size_t num) const {
   return prior_prob_[num];
 }
 

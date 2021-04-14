@@ -33,15 +33,15 @@ std::istream& operator>>(std::istream &is, Image &image) {
   return is;
 }
 
-const size_t Image::GetClass() const {
+size_t Image::GetClass() const {
   return class_;
 }
 
-const size_t Image::GetShade(size_t row, size_t col) const {
+size_t Image::GetShade(size_t row, size_t col) const {
   return shades_[row][col];
 }
 
-size_t Image::GetImageSize() {
+size_t Image::GetImageSize() const {
   return kImageSize_;
 }
 

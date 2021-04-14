@@ -58,11 +58,10 @@ class Model {
    */
   void CalculateFeatureProbabilities();
 
-  const size_t GetFeatureCount(size_t row, size_t col, size_t shade, size_t num);
-  const double GetPriorProbability(size_t num);
-  const double GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num);
-
-  const std::vector<Image> GetImages();
+  size_t GetFeatureCount(size_t row, size_t col, size_t shade, size_t num) const;
+  double GetPriorProbability(size_t num) const;
+  double GetFeatureProbability(size_t row, size_t col, size_t shade, size_t num) const;
+  std::vector<Image> GetImages() const;
 
  private:
   size_t kImageSize_;

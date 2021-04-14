@@ -10,7 +10,9 @@ namespace naivebayes {
 class Image {
   
  public:
+  
   Image();
+  
   Image(size_t image_size);
   
   /**
@@ -27,9 +29,9 @@ class Image {
    */
   void ResizeShadeVector(size_t vector_size);
   
-  const size_t GetClass() const;
-  const size_t GetShade(size_t row, size_t col) const;
-  size_t GetImageSize();
+  size_t GetClass() const;
+  size_t GetShade(size_t row, size_t col) const;
+  size_t GetImageSize() const;
   void SetShade(size_t row, size_t col, size_t shade);
   void SetImageSize(size_t image_size);
   void SetShadeVector(std::vector<std::vector<size_t>> &shades);
