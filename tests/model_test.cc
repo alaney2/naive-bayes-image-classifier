@@ -83,6 +83,19 @@ TEST_CASE("Train model") {
     REQUIRE(model.GetFeatureCount(2, 2, 0, 9) == 0);
   }
 
+  SECTION("Prior probabilities") {
+    REQUIRE(model.GetPriorProbability(0) == 0.1);
+    REQUIRE(model.GetPriorProbability(1) == 0.1);
+    REQUIRE(model.GetPriorProbability(2) == 0.1);
+    REQUIRE(model.GetPriorProbability(3) == 0.1);
+    REQUIRE(model.GetPriorProbability(4) == 0.1);
+    REQUIRE(model.GetPriorProbability(5) == 0.1);
+    REQUIRE(model.GetPriorProbability(6) == 0.1);
+    REQUIRE(model.GetPriorProbability(7) == 0.1);
+    REQUIRE(model.GetPriorProbability(8) == 0.1);
+    REQUIRE(model.GetPriorProbability(9) == 0.1);
+  }
+
   SECTION("Shaded feature probabilities") {
     REQUIRE(model.GetFeatureProbability(0, 0, 1, 0) == Approx(0.3333333333));
     REQUIRE(model.GetFeatureProbability(3, 2, 1, 1) == Approx(0.6666666667));

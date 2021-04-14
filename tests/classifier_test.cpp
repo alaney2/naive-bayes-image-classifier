@@ -24,7 +24,7 @@ TEST_CASE("Likelihood scores") {
     image.SetShadeVector(shades);
     classifier.CalculateLikelihoodScores(image);
     REQUIRE(classifier.GetScore(0) == Approx(-12.4392002957));
-    for (size_t i = 0; i < 10; ++i) {
+    for (size_t i = 1; i < 10; ++i) {
       REQUIRE(classifier.GetScore(i) < -12.4392002957);
     }
   }
@@ -38,7 +38,7 @@ TEST_CASE("Likelihood scores") {
     image.SetShadeVector(shades);
     classifier.CalculateLikelihoodScores(image);
     REQUIRE(classifier.GetScore(9) == Approx(-12.4392002957));
-    for (size_t i = 0; i < 10; ++i) {
+    for (size_t i = 0; i < 9; ++i) {
       REQUIRE(classifier.GetScore(i) < -12.4392002957);
     }
   }
