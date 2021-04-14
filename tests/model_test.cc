@@ -6,8 +6,9 @@
 #include <iostream>
 
 namespace naivebayes {
-TEST_CASE("Model") {
-  naivebayes::Model model(5);
+
+TEST_CASE("Train model") {
+  Model model(5);
   std::string file = "../../../../../../tests/testing_data.txt";
   model.ParseFile(file);
   model.TrainModel();
@@ -26,7 +27,7 @@ TEST_CASE("Model") {
     REQUIRE(model.GetImages()[9].GetClass() == 9);
   }
 
-  SECTION("Shaded") {
+  SECTION("Shade pixels") {
     REQUIRE(model.GetImages()[0].GetShade(1, 1) == 1);
     REQUIRE(model.GetImages()[0].GetShade(1, 2) == 1);
     REQUIRE(model.GetImages()[0].GetShade(2, 1) == 1);
@@ -39,7 +40,7 @@ TEST_CASE("Model") {
     REQUIRE(model.GetImages()[9].GetShade(4, 3) == 1);
   }
 
-  SECTION("Unshaded") {
+  SECTION("Unshaded pixels") {
     REQUIRE(model.GetImages()[0].GetShade(0, 0) == 0);
     REQUIRE(model.GetImages()[0].GetShade(2, 2) == 0);
     REQUIRE(model.GetImages()[1].GetShade(0, 4) == 0);
@@ -159,63 +160,4 @@ TEST_CASE("Operator Overloading") {
   }
 }
 
-TEST_CASE("Classifier") {
-  naivebayes::Model model(5);
-  std::string file = "../../../../../../tests/testing_model.txt";
-  std::ifstream load(file);
-  load >> model;
-
-  Classifier classifier(model);
-  Image image(5);
-
-  SECTION("Likelihood scores for 0") {
-    std::vector<std::vector<size_t>> shades = {{0, 0, 0, 0, 0},
-                                               {0, 1, 1, 1, 0},
-                                               {0, 1, 0, 1, 0},
-                                               {0, 1, 1, 1, 0},
-                                               {0, 0, 0, 0, 0}};
-    image.SetShadeVector(shades);
-    classifier.CalculateLikelihoodScores(image);
-    REQUIRE(classifier.GetScore(0) == Approx(-12.4392002957));
-    for (size_t i = 0; i < 10; ++i) {
-      REQUIRE(classifier.GetScore(i) < -12.4392002957);
-    }
-  }
-
-  SECTION("Likelihood scores for 0") {
-    std::vector<std::vector<size_t>> shades = {{0, 1, 1, 1, 0},
-                                               {0, 1, 0, 1, 0},
-                                               {0, 1, 1, 1, 0},
-                                               {0, 0, 0, 1, 0},
-                                               {0, 0, 0, 1, 0}};
-    image.SetShadeVector(shades);
-    classifier.CalculateLikelihoodScores(image);
-    REQUIRE(classifier.GetScore(9) == Approx(-12.4392002957));
-    for (size_t i = 0; i < 10; ++i) {
-      REQUIRE(classifier.GetScore(i) < -12.4392002957);
-    }
-  }
-
-  SECTION("Best class for 0") {
-    std::vector<std::vector<size_t>> shades = {{0, 0, 0, 0, 0},
-                                               {0, 1, 1, 1, 0},
-                                               {0, 1, 0, 1, 0},
-                                               {0, 1, 1, 1, 0},
-                                               {0, 0, 0, 0, 0}};
-    image.SetShadeVector(shades);
-    classifier.CalculateLikelihoodScores(image);
-    REQUIRE(classifier.GetBestClass(image) == 0);
-  }
-
-  SECTION("Best class for 9") {
-    std::vector<std::vector<size_t>> shades = {{0, 1, 1, 1, 0},
-                                               {0, 1, 0, 1, 0},
-                                               {0, 1, 1, 1, 0},
-                                               {0, 0, 0, 1, 0},
-                                               {0, 0, 0, 1, 0}};
-    image.SetShadeVector(shades);
-    classifier.CalculateLikelihoodScores(image);
-    REQUIRE(classifier.GetBestClass(image) == 9);
-  }
-}
 }  // namespace naivebayes
