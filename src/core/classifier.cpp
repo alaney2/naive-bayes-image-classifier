@@ -19,7 +19,7 @@ double Classifier::CalculateAccuracy(const std::vector<Image>& images) {
   return static_cast<double>(count) / static_cast<double>(images.size());
 }
 
-void Classifier::CalculateLikelihoodScores(Image& image) {
+void Classifier::CalculateLikelihoodScores(const Image& image) {
   likelihood_scores_.resize(kNumClasses, 0);
 
   for (size_t num = 0; num < kNumClasses; ++num) {
@@ -34,8 +34,8 @@ void Classifier::CalculateLikelihoodScores(Image& image) {
   }
 }
 
-int Classifier::GetBestClass(Image image) {
-  CalculateLikelihoodScores(image);
+int Classifier::GetBestClass(const Image &image) {
+  CalculateLikelihoodScores(const_cast<Image&>(image));
   int best_class = 0;
   for (int num = 1; num < kNumClasses; ++num) {
     if (likelihood_scores_[num] > likelihood_scores_[best_class]) {
@@ -46,7 +46,7 @@ int Classifier::GetBestClass(Image image) {
   return best_class;
 }
 
-double Classifier::GetScore(size_t num) {
+const double Classifier::GetScore(size_t num) const {
   return likelihood_scores_[num];
 }
 

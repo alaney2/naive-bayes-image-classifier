@@ -44,7 +44,7 @@ void Sketchpad::Draw() const {
 
 void Sketchpad::HandleBrush(const vec2& brush_screen_coords) {
   vec2 brush_sketchpad_coords =
-      (brush_screen_coords - top_left_corner_) / (float)pixel_side_length_;
+      (brush_screen_coords - top_left_corner_) / static_cast<float>(pixel_side_length_);
 
   for (size_t row = 0; row < num_pixels_per_side_; ++row) {
     for (size_t col = 0; col < num_pixels_per_side_; ++col) {
@@ -66,7 +66,7 @@ void Sketchpad::Clear() {
   }
 }
 
-Image Sketchpad::GetImage() {
+const Image Sketchpad::GetImage() const {
   return image_;
 }
 

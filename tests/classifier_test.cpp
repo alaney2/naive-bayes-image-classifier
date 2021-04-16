@@ -14,7 +14,7 @@ TEST_CASE("Likelihood scores") {
 
   Classifier classifier(model);
   Image image(5);
-
+x
   SECTION("Likelihood scores for 0") {
     std::vector<std::vector<size_t>> shades = {{0, 0, 0, 0, 0},
                                                {0, 1, 1, 1, 0},

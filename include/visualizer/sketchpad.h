@@ -51,7 +51,7 @@ class Sketchpad {
    */
   void Clear();
 
-  Image GetImage();
+  const Image GetImage() const;
 
  private:
   Image image_;

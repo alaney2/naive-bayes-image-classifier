@@ -27,16 +27,16 @@ class Classifier {
    * Calculates likelihood scores for classes 0-9 for an image
    * @param image to calculate scores for
    */
-  void CalculateLikelihoodScores(Image &image);
+  void CalculateLikelihoodScores(const Image &image);
 
   /**
    * Returns the class with the highest likelihood score for an image
    * @param image to predict class for
    * @return predicted class
    */
-  int GetBestClass(Image image);
+  int GetBestClass(const Image &image);
 
-  double GetScore(size_t num);
+  const double GetScore(size_t num) const;
 
   void SetModel(Model &model);
 
